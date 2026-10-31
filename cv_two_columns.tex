@@ -1,12 +1,6 @@
 %!TEX program = pdflatex
 % ============================================================
-%  Modèle CV deux colonnes « Informatique x Recherche » — 1 page
-%  (barre latérale sombre + frise, inspiré de l'ancien CV)
-%  Compilation : make          (ou, à la main :)
-%    pdflatex "\def\cvlang{fr}\input{cv_two_columns.tex}"
-%  Langue : \cvlang = fr | en  (fichiers content/fr.tex, content/en.tex)
-%  Photo : photo.jpg à la racine (sinon la photo est omise).
-%  Le contenu est dans content/ ; ce fichier ne contient que la mise en page.
+%  Modèle CV deux colonnes — sidebar bleu nuit, accent pétrole
 % ============================================================
 \documentclass[10pt,a4paper]{article}
 
@@ -14,6 +8,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[scaled=0.92]{helvet}
 \renewcommand{\familydefault}{\sfdefault}
+\usepackage{microtype}
 \usepackage[a4paper,margin=0pt,nohead,nofoot]{geometry}
 \usepackage{xcolor}
 \usepackage{graphicx}
@@ -27,52 +22,57 @@
 \input{content/personal}
 \input{content/\cvlang}
 
-% ---------- Couleurs (modifier ici pour changer le thème) ----------
-\definecolor{accent}{HTML}{2EA3E0}   % bleu des titres
-\definecolor{side}{HTML}{232323}     % fond de la barre latérale
-\definecolor{sidetext}{HTML}{D6D6D6} % texte secondaire de la barre
-\definecolor{ink}{HTML}{222222}      % titres sombres
-\definecolor{body}{HTML}{4A4A4A}     % texte courant
-\definecolor{muted}{HTML}{777777}
+% ---------- Palette ----------
+\definecolor{accent}{HTML}{39B7B0}   % turquoise
+\definecolor{side}{HTML}{172B3A}     % bleu nuit
+\definecolor{sidetext}{HTML}{D4E0E6}
+\definecolor{ink}{HTML}{172B3A}
+\definecolor{body}{HTML}{394B57}
+\definecolor{muted}{HTML}{71818B}
+\definecolor{sideRule}{HTML}{36505F}
 
 % ---------- Dimensions ----------
-\newcommand{\sidew}{6.1cm}      % largeur de la barre latérale
-\newcommand{\sidetextw}{4.7cm}  % largeur utile du texte de la barre
-\newcommand{\maintextw}{12.5cm} % largeur de la colonne principale
+\newcommand{\sidew}{6.1cm}
+\newcommand{\sidetextw}{4.7cm}
+\newcommand{\maintextw}{12.5cm}
 
 \AddToShipoutPictureBG*{\AtPageLowerLeft{\color{side}\rule{\sidew}{\paperheight}}}
 
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
-\setlist[itemize]{leftmargin=0.9em,itemsep=0pt,topsep=1pt,parsep=0pt,label={\textcolor{muted}{\textbullet}}}
+\setlist[itemize]{leftmargin=0.95em,itemsep=0.2pt,topsep=1.2pt,parsep=0pt,partopsep=0pt,label={\textcolor{accent}{\textbullet}}}
 
 % ---------- Barre latérale ----------
-\newcommand{\sidehead}[1]{\vspace{9pt}{\color{white}\bfseries\large #1}\par\vspace{3pt}}
-\newcommand{\sideitem}[2]{{\color{white}\bfseries\small #1}\\[-1pt]{\color{sidetext}\footnotesize #2}\par\vspace{3pt}}
-\newcommand{\sideline}[1]{{\color{white}\footnotesize #1}\par\vspace{2pt}}
+\newcommand{\sidehead}[1]{%
+  \vspace{8pt}{\color{accent}\bfseries\footnotesize\MakeUppercase{#1}}\par
+  \vspace{2pt}{\color{sideRule}\rule{\sidetextw}{0.45pt}}\par\vspace{3pt}}
+\newcommand{\sideitem}[2]{%
+  {\color{white}\bfseries\small #1}\\[-1pt]
+  {\color{sidetext}\footnotesize #2}\par\vspace{3pt}}
+\newcommand{\sideline}[1]{{\color{sidetext}\footnotesize #1}\par\vspace{2.5pt}}
 
-% ---------- Frise (colonne principale) ----------
+% ---------- Frise principale ----------
 \newsavebox{\eb}
-% \entryfull{rallonge}{Titre}{Date}{Organisation}{Lieu}{Description}
-% Chaque entrée dessine son point et son segment de frise (une seule compilation).
 \newcommand{\entryfull}[6]{%
-  \vspace{4.5pt}\noindent%
+  \vspace{3.6pt}\noindent%
   \sbox{\eb}{\begin{minipage}[t]{\maintextw}\raggedright
     {\color{ink}\bfseries\normalsize #2}\par
-    {\color{muted}\small #3}\ \ {\color{accent}\small #4}\ \ {\color{muted}\small #5}\par\vspace{1.5pt}
+    {\color{accent}\small\bfseries #4}\hspace{5pt}{\color{muted}\small #3\ifx\relax#5\relax\else\quad\textbullet\quad #5\fi}\par\vspace{1pt}
     #6
   \end{minipage}}%
   \tikz[overlay]{%
-    \fill[ink] (-0.5cm,-0.11cm) circle (2.7pt);
-    \draw[ink,line width=0.9pt] (-0.5cm,-0.11cm) -- (-0.5cm,{-\the\dimexpr\dp\eb+#1+0.11cm\relax});}%
+    \fill[accent] (-0.5cm,-0.11cm) circle (2.5pt);
+    \draw[sideRule,line width=0.8pt] (-0.5cm,-0.11cm) -- (-0.5cm,{-\the\dimexpr\dp\eb+#1+0.11cm\relax});}%
   \usebox{\eb}\par}
-\newcommand{\entry}[5]{\entryfull{8pt}{#1}{#2}{#3}{#4}{#5}}
-\newcommand{\entrylast}[5]{\entryfull{-7pt}{#1}{#2}{#3}{#4}{#5}}
+\newcommand{\entry}[5]{\entryfull{7pt}{#1}{#2}{#3}{#4}{#5}}
+\newcommand{\entrylast}[5]{\entryfull{-6pt}{#1}{#2}{#3}{#4}{#5}}
 
-\newcommand{\maintitle}[1]{{\color{accent}\bfseries\large #1}\par\vspace{3pt}}
+\newcommand{\maintitle}[1]{%
+  {\color{ink}\bfseries\large #1}\par
+  \vspace{1pt}{\color{accent}\rule{1.15cm}{1.3pt}}\par\vspace{1pt}}
 
-% ---------- API de contenu (utilisée par content/*.tex) ----------
+% ---------- API de contenu ----------
 \newcommand{\cvli}{\item}
 \newcommand{\cvbody}[1]{\begin{itemize}\small\color{body}#1\end{itemize}}
 \newcommand{\cvexp}[5]{\entry{#1}{#4}{#2}{#3}{\cvbody{#5}}}
@@ -87,16 +87,20 @@
 \begin{document}
 \noindent\hspace*{0.65cm}%
 \begin{minipage}[t][29.2cm][t]{\sidetextw}\raggedright
-  \vspace{0.75cm}
-  \IfFileExists{photo.jpg}{\noindent\includegraphics[width=\sidetextw]{photo.jpg}\par\vspace{6pt}}{}
+  \vspace{0.72cm}
+  \IfFileExists{photo.jpg}{\noindent\includegraphics[width=2.55cm,height=2.55cm,keepaspectratio]{photo.jpg}\par\vspace{7pt}}{}
+  {\color{white}\bfseries\Large\cvName}\par\vspace{2pt}
+  {\color{accent}\footnotesize\bfseries\cvTagline}\par\vspace{8pt}
+  {\color{sideRule}\rule{\sidetextw}{0.5pt}}\par\vspace{6pt}
+
   \sideline{\textcolor{accent}{\textbullet}\ \cvEmail}
   \sideline{\textcolor{accent}{\textbullet}\ \cvCity}
   \sideline{\textcolor{accent}{\textbullet}\ \cvPhone}
 
   \sidehead{\cvLabNetworks}
-  \sideline{\href{https://www.linkedin.com/in/\cvLinkedinId/}{\textcolor{white}{linkedin.com/in/}}\\\href{https://www.linkedin.com/in/\cvLinkedinId/}{\textcolor{white}{\cvLinkedinId}}}
-  \sideline{\href{https://github.com/\cvGithubUser}{\textcolor{white}{github.com/\cvGithubUser}}}
-  \sideline{\href{https://\cvSite/}{\textcolor{white}{\cvSite}}}
+  \sideline{\href{https://www.linkedin.com/in/\cvLinkedinId/}{\textcolor{sidetext}{linkedin.com/in/\cvLinkedinId}}}
+  \sideline{\href{https://github.com/\cvGithubUser}{\textcolor{sidetext}{github.com/\cvGithubUser}}}
+  \sideline{\href{https://\cvSite/}{\textcolor{sidetext}{\cvSite}}}
 
   \sidehead{\cvLabLang}
   \cvLangItems
@@ -112,18 +116,17 @@
 \end{minipage}%
 \hspace{1.75cm}%
 \begin{minipage}[t][29.2cm][t]{\maintextw}\raggedright
-  \vspace{0.75cm}
-  {\color{ink}\bfseries\Large\cvName}\par\vspace{2pt}
-  {\color{accent}\bfseries\Large\cvTagline}\par\vspace{3pt}
+  \vspace{0.72cm}
+  {\color{muted}\small\MakeUppercase{\cvLabProfile}}\par\vspace{2pt}
   {\color{body}\small\cvProfile}\par
 
-  \vspace{7pt}\maintitle{\cvLabExp}
+  \vspace{6pt}\maintitle{\cvLabExp}
   \cvExperiences
 
-  \vspace{6pt}\maintitle{\cvLabProj}
+  \vspace{5pt}\maintitle{\cvLabProj}
   \cvProjects
 
-  \vspace{6pt}\maintitle{\cvLabEdu}
+  \vspace{5pt}\maintitle{\cvLabEdu}
   \cvEducation
 \end{minipage}
 \end{document}
