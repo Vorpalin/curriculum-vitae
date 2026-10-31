@@ -20,7 +20,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             make texlive-latex-base texlive-latex-recommended \
-            texlive-latex-extra texlive-fonts-recommended texlive-pgf
+            texlive-latex-extra texlive-fonts-recommended \
+            texlive-pictures
 
       - name: Compiler les CV
         run: make
