@@ -7,7 +7,7 @@
 \newcommand{\cvLabExp}{Expériences}
 \newcommand{\cvLabProj}{Projets sélectionnés \& open source}
 \newcommand{\cvLabEdu}{Formation}
-\newcommand{\cvLabEduAwards}{Formation \& distinctions}
+\newcommand{\cvLabEduAwards}{Formation}
 \newcommand{\cvLabSkills}{Compétences}
 \newcommand{\cvLabMisc}{Divers}
 \newcommand{\cvLabNetworks}{Réseaux}
@@ -24,26 +24,44 @@
 
 % ---------- Expériences ----------
 \newcommand{\cvExperiences}{%
-  \cvexp{Stagiaire IA — Équipe Intelligence artificielle}{Opensee}{Puteaux}{Depuis sept. 2026}{%
-    \cvli{Contribution au développement d'\textbf{Agensee}, solution d'IA agentique dédiée à l'analyse de données financières.}}
+  \cvexp{Stagiaire IA — Équipe Intelligence artificielle}{Opensee}{Puteaux · Sur site}{Depuis sept. 2026}{%
+    \cvli{Contribution au développement d'\textbf{Agensee}, solution d'IA agentique spécialisée dans l'analyse de données financières.}
+    \cvli{Participation aux activités de développement de l'équipe IA et suivi des tâches dans Jira.}}
   \cvexp{Étudiant-chercheur — Sécurité \& Systèmes}{Laboratoire de Recherche de l'EPITA (LRE)}{Lyon}{Fév. -- juil. 2026}{%
-    \cvli{Recherche sur la minimisation du nombre de \textbf{S-boxes actives} en cryptanalyse différentielle, dans l'outil \textbf{TAGADA}.}
-    \cvli{Conception et optimisation d'algorithmes de programmation dynamique multithreadés en C++, traitements JSON et benchmarks Docker.}}
+    \cvli{Étude et optimisation de la minimisation du nombre de \textbf{S-boxes actives} dans la recherche de caractéristiques différentielles avec l'outil de cryptanalyse \textbf{TAGADA}.}
+    \cvli{Conception d'algorithmes de programmation dynamique multithreadés en C++, adaptés aux contraintes de la bibliothèque TAGADA.}
+    \cvli{Traitement de données JSON, benchmarks sous Docker et analyse des performances pour évaluer les optimisations.}}
   \cvexp{Assistant de programmation C}{EPITA}{Lyon · Hybride}{Août 2025 -- juil. 2026}{%
-    \cvli{Accompagnement d'étudiants en C, Python, Git et Linux/NixOS ; préparation, validation et correction de TP avec GitLab et Criterion.}}
-  \cvexplast{Assistant de TP d'informatique}{SupBiotech}{Lyon}{Sept. 2025 -- juin 2026}{%
-    \cvli{Accompagnement d'étudiants en classe préparatoire en programmation Python, algorithmique et résolution de problèmes.}}}
+    \cvli{Accompagnement des étudiants de première année en C, Python, Git et Linux/NixOS : explication des concepts, débogage et aide à la résolution de problèmes.}
+    \cvli{Relecture des sujets et tests des TP hebdomadaires, validation via GitLab, correction et évaluation des rendus en C avec Criterion.}}
+  \cvexplast{Assistant de TP d'informatique}{SupBiotech}{Lyon · Sur site}{Sept. 2025 -- juin 2026}{%
+    \cvli{Accompagnement d'étudiants de classe préparatoire en Python : compréhension du langage, conception d'algorithmes et résolution des difficultés rencontrées pendant les TP.}}}
 
-% ---------- Projets ----------
+% ---------- Projets — ordre antéchronologique ----------
 \newcommand{\cvProjects}{%
-  \cvexp{Contributions open source — \texttt{langchain-aws}}{LangChain}{\href{https://github.com/langchain-ai/langchain-aws/pull/1389}{PR \#1389} · \href{https://github.com/langchain-ai/langchain-aws/pull/1415}{PR \#1415}}{2026}{%
-    \cvli{Deux PR fusionnées améliorant la prise en charge des niveaux d'effort de raisonnement dans les profils Amazon Bedrock (\texttt{reasoning\_effort\_levels}).}}
-  \cvexp{SolveSmart — Résolution de mots mêlés par IA}{EPITA · C, traitement d'image}{Chef de groupe}{2024}{%
-    \cvli{Conception d'une chaîne de traitement d'image et implémentation \textbf{from scratch} d'un réseau de neurones pour reconnaître les lettres et résoudre automatiquement une grille.}}
-  \cvexp{Classeur de monstres interactif}{Centria · Python, SQL, vision par ordinateur}{}{2025}{%
-    \cvli{Développement d'une application de gestion et de recherche multicritère de monstres, incluant la recherche à partir d'une image par vision par ordinateur.}}
-  \cvexplast{Emulators Collection}{Projet personnel · C++20, WebAssembly, React}{\href{https://github.com/Vorpalin/emulators-collection}{GitHub}}{2026 -- aujourd'hui}{%
-    \cvli{Architecture modulaire et développement d'émulateurs CHIP-8, Super-CHIP, Atari 2600 et Game Boy ; compilation des cœurs C++ en WebAssembly et interface React/TypeScript.}}}
+  \cvexp{Emulators Collection}{Projet personnel · C++20, WebAssembly, React/TypeScript}{\href{https://github.com/Vorpalin/emulators-collection}{GitHub}}{Sept. 2026 -- aujourd'hui}{%
+    \cvli{Conception d'une architecture modulaire en C++20 pour intégrer plusieurs systèmes d'émulation et isoler leurs composants matériels.}
+    \cvli{Implémentation de cœurs d'émulation CHIP-8, Super-CHIP 48, Atari 2600 et Game Boy : CPU, bus mémoire et périphériques.}
+    \cvli{Compilation avec Emscripten vers WebAssembly et développement d'une interface React/TypeScript pour charger, contrôler et exécuter les émulateurs dans le navigateur.}
+    \cvli{Mise en place de contrôles qualité, d'analyses statiques et d'automatisations avec Docker, pre-commit et GitHub Actions.}}
+  \cvexp{Contributions open source — \texttt{langchain-aws}}{LangChain · Python}{\href{https://github.com/langchain-ai/langchain-aws/pull/1389}{PR \#1389} · \href{https://github.com/langchain-ai/langchain-aws/pull/1415}{PR \#1415}}{2026}{%
+    \cvli{Deux pull requests fusionnées améliorant la prise en charge des niveaux d'effort de raisonnement dans les profils de modèles Amazon Bedrock (\texttt{reasoning\_effort\_levels}).}}
+  \cvexp{PING — IDE pédagogique gamifié}{Projet EPITA · Java, Quarkus, React/TypeScript}{Équipe de 5}{Mars -- juil. 2026}{%
+    \cvli{Développement du backend Java sous forme d'API REST en architecture en couches, reliant PostgreSQL à l'interface utilisateur.}
+    \cvli{Développement et intégration de fonctionnalités frontend (amis, statistiques, création et réalisation d'exercices), documentation de l'API et tests unitaires/fonctionnels intégrés à un pipeline CI/CD.}
+    \cvli{Participation à la conception produit, au prototypage et aux tests utilisateurs selon une méthodologie Agile.}}
+  \cvexp{JWS — Backend de jeu de collection}{Projet EPITA · Java, API REST}{}{Févr. 2026}{%
+    \cvli{Conception des endpoints, implémentation de la logique métier et de la communication avec la base de données, au sein d'une architecture en couches.}}
+  \cvexp{42sh — Interpréteur de shell POSIX}{Projet EPITA · C}{Équipe de 4}{Janv. 2026}{%
+    \cvli{Conception du lexer, du parser et de l'AST ; structuration de l'architecture avec les design patterns \textbf{Composite} et \textbf{Visitor}.}
+    \cvli{Organisation du dépôt GitLab, collaboration par merge requests et maintien d'une architecture modulaire.}}
+  \cvexp{SolveSmart — Résolution de mots mêlés par IA}{Projet EPITA · C, traitement d'image}{Chef de groupe}{Sept. -- déc. 2024}{%
+    \cvli{Développement d'une chaîne de traitement d'image pour extraire et segmenter la grille, puis identifier les lettres.}
+    \cvli{Implémentation \textbf{from scratch} d'un réseau de neurones pour reconnaître les lettres, puis intégration des étapes pour résoudre automatiquement la grille.}
+    \cvli{Coordination d'une équipe de trois personnes et intégration des composants du projet.}}
+  \cvexplast{Classeur de monstres interactif}{Centria · Python, SQL, vision par ordinateur}{}{Avr. 2025}{%
+    \cvli{Développement d'une application de création et de gestion de monstres avec base de données SQL et recherche multicritère.}
+    \cvli{Ajout d'une recherche à partir d'une image reposant sur des techniques de vision par ordinateur.}}}
 
 % ---------- Formation ----------
 \newcommand{\cvEducation}{%
@@ -51,8 +69,7 @@
   \cvedu{Semestre universitaire à l'étranger — informatique}{Centria University of Applied Sciences}{Kokkola, Finlande · 30 ECTS}{Janv. -- mai 2025}
   \cvedulast{Baccalauréat général}{Lycée Charles de Foucauld}{Lyon}{2023}}
 
-\newcommand{\cvAwards}{%
-  \cvaward{Top Scorer 2026}{Challenge du Meilleur étudiant en informatique de France}}
+\newcommand{\cvAwards}{}
 
 % ---------- Compétences, langues, intérêts ----------
 \newcommand{\cvSkills}{%
