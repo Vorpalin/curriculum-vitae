@@ -1,15 +1,14 @@
 %!TEX program = pdflatex
 % ============================================================
-%  Modèle CV une colonne — IA et recherche appliquée
+%  Modèle CV une colonne — mise en page éditoriale compacte
 % ============================================================
 \documentclass[10pt,a4paper]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[scaled=0.92]{helvet}
-\renewcommand{\familydefault}{\sfdefault}
+\usepackage{newtxtext}
 \usepackage{microtype}
-\usepackage[top=0.78cm,bottom=0.72cm,left=1.35cm,right=1.35cm]{geometry}
+\usepackage[top=0.78cm,bottom=0.72cm,left=1.25cm,right=1.25cm]{geometry}
 \usepackage{xcolor}
 \usepackage{titlesec}
 \usepackage[shortlabels]{enumitem}
@@ -21,28 +20,29 @@
 \input{content/\cvlang}
 
 % ---------- Palette ----------
-\definecolor{accent}{HTML}{167D8D}
-\definecolor{ink}{HTML}{172B3A}
-\definecolor{muted}{HTML}{657582}
-\definecolor{rule}{HTML}{D9E3E8}
+\definecolor{accent}{HTML}{174F9A}
+\definecolor{ink}{HTML}{202A3A}
+\definecolor{muted}{HTML}{596273}
+\definecolor{rule}{HTML}{174F9A}
 
 % ---------- Mise en page ----------
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
-\setlist[itemize]{leftmargin=1.05em,itemsep=0pt,topsep=0.8pt,parsep=0pt,partopsep=0pt,label=\textcolor{accent}{\textbullet}}
+\setlist[itemize]{leftmargin=1.15em,itemsep=0.2pt,topsep=1pt,parsep=0pt,partopsep=0pt,label=\textcolor{ink}{\textbullet}}
 
 \titleformat{\section}
-  {\normalsize\bfseries\color{ink}}
+  {\normalsize\bfseries\color{accent}}
   {}{0pt}{\MakeUppercase}
-  [\vspace{-4pt}\textcolor{rule}{\rule{\linewidth}{0.65pt}}]
-\titlespacing*{\section}{0pt}{4.6pt}{1.8pt}
+  [\vspace{-3.5pt}\textcolor{rule}{\rule{\linewidth}{0.55pt}}]
+\titlespacing*{\section}{0pt}{4.3pt}{1.8pt}
 
 % ---------- Primitives ----------
+% Intitulé et date sur une ligne ; organisation et localisation en dessous.
 \newcommand{\entry}[3]{%
-  \vspace{1.6pt}%
-  \noindent\textbf{\color{ink}#1}\hfill{\small\color{accent}\bfseries #3}\par
-  \textcolor{muted}{\small #2}\par}
+  \vspace{1.35pt}%
+  \noindent\textbf{\color{ink}#1}\hfill{\small\color{muted}#3}\par
+  {\small\itshape\color{muted}#2}\par}
 \newcommand{\cvplace}[1]{\def\cvtmp{#1}\ifx\cvtmp\empty\else\textcolor{muted}{\ \textbullet\ #1}\fi}
 \newcommand{\cvli}{\item}
 \newcommand{\cvexp}[5]{\entry{#1}{#2\cvplace{#3}}{#4}\begin{itemize}#5\end{itemize}}
@@ -54,49 +54,50 @@
 \newcommand{\cvskill}[2]{\textbf{\color{ink}#1} & #2 \\[0.4pt]}
 \newcommand{\cvinterest}[2]{\ifcvfirst\cvfirstfalse\else\ \,·\,\ \fi\textbf{\color{ink}#1}\def\cvtmp{#2}\ifx\cvtmp\empty\else\cvColon#2\fi}
 \newcommand{\cvlangitem}[2]{}
-\newcommand{\cvneticon}[3]{\href{#1}{\colorbox{accent}{\textcolor{white}{\scriptsize\bfseries #2}}\hspace{2pt}\textcolor{muted}{#3}}}
+\newcommand{\cvneticon}[3]{\href{#1}{\textcolor{accent}{\textbf{#2}}\hspace{2pt}\textcolor{muted}{#3}}}
 
 \begin{document}
-\fontsize{9.0}{10.3}\selectfont
+\fontsize{8.8}{9.8}\selectfont
 
-% ---------- En-tête ----------
-{\fontsize{7.5}{8.5}\selectfont\bfseries\color{accent}\cvObjective}\par
-\vspace{1pt}
-{\fontsize{23}{25}\selectfont\bfseries\color{ink}\cvName}\par
-\vspace{1pt}
-{\normalsize\bfseries\color{accent}\cvHeadline}\par
-\vspace{2pt}
+% ---------- En-tête centré ----------
+\begin{center}
+  {\fontsize{22}{24}\selectfont\bfseries\color{ink}\cvName}\par
+  \vspace{1pt}
+  {\small\color{muted}
+    \cvCity \quad\textbullet\quad
+    \href{mailto:\cvEmail}{\cvEmail} \quad\textbullet\quad
+    \cvPhone \quad\textbullet\quad
+    \cvneticon{https://www.linkedin.com/in/\cvLinkedinId/}{in}{LinkedIn}
+    \quad\textbullet\quad
+    \cvneticon{https://github.com/\cvGithubUser}{GH}{GitHub}
+  }\par
+  \vspace{2pt}
+  {\small\bfseries\color{accent}\cvObjective}\par
+  \vspace{2pt}
+\end{center}
 {\small\color{muted}\cvProfile\par}
-\vspace{3pt}
-{\footnotesize\color{muted}
-  \cvCity \quad\textbullet\quad
-  \href{mailto:\cvEmail}{\cvEmail} \quad\textbullet\quad
-  \cvPhone \par
-  \cvneticon{https://www.linkedin.com/in/\cvLinkedinId/}{in}{LinkedIn}
-  \hspace{8pt}
-  \cvneticon{https://github.com/\cvGithubUser}{GH}{GitHub}}
-\vspace{3pt}
-{\color{accent}\rule{2.2cm}{2pt}\color{rule}\rule{\dimexpr\linewidth-2.2cm\relax}{0.55pt}}
+\vspace{2pt}
 
-\vspace{-1pt}
-\section{\cvLabExp}
-\cvExperiences
-
-\section{\cvLabProj}
-\cvProjects
-
+% ---------- Formation ----------
 \section{\cvLabEduAwards}
 \cvEducation
 
-\vspace{1pt}
-{\small\color{muted}\cvfirsttrue\cvAwards}
+% ---------- Expériences ----------
+\section{\cvLabExp}
+\cvExperiences
 
-\section{\cvLabSkills}
-\begin{tabular}{@{}p{2.55cm}p{15.1cm}@{}}
+% ---------- Projets ----------
+\section{\cvLabProj}
+\cvProjects
+
+% ---------- Compétences ----------
+\section{Compétences techniques}
+\begin{tabular}{@{}p{2.5cm}p{16.0cm}@{}}
   \cvSkills
   \textbf{\color{ink}\cvLabLang} & \cvLangShort
 \end{tabular}
 
+% ---------- Autres ----------
 \section{\cvLabMisc}
 \cvfirsttrue\cvInterests
 
