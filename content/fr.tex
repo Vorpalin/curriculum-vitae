@@ -1,12 +1,6 @@
 % ============================================================
 %  Contenu du CV — version française
-%  Les macros \cvexp, \cvedu, \cvskill... sont définies par chaque
-%  modèle (une colonne / deux colonnes) : on écrit le contenu une seule fois.
-%
-%  \cvexp{Titre}{Organisation}{Lieu}{Date}{ \cvli{puce} \cvli{puce} }
-%  \cvedu{Titre}{Organisation}{Lieu}{Date}
-%  Les variantes \cvexplast / \cvedulast s'utilisent pour le DERNIER
-%  élément d'un bloc (elles terminent la frise du modèle deux colonnes).
+%  Les macros de mise en page sont définies dans les modèles.
 % ============================================================
 
 % ---------- Libellés ----------
@@ -24,57 +18,56 @@
 \newcommand{\cvColon}{\ :\ }
 
 % ---------- Titre et profil ----------
-\newcommand{\cvHeadline}{Élève-ingénieur EPITA \,·\, IA agentique \,·\, C++ \,·\, Cryptanalyse}
+\newcommand{\cvHeadline}{Élève-ingénieur EPITA \,·\, IA \,·\, Développement logiciel \,·\, Recherche}
 \newcommand{\cvTagline}{Informatique \& Recherche}
-\newcommand{\cvProfile}{Élève-ingénieur à l'EPITA (diplôme prévu en 2028), stagiaire IA chez Opensee sur une solution d'IA agentique pour l'analyse de données financières et étudiant-chercheur en cryptanalyse différentielle (C++ parallèle). Contributeur open source (deux PR fusionnées dans \texttt{langchain-aws}). Je cherche à travailler là où l'ingénierie logicielle, l'IA et la recherche se rencontrent.}
+\newcommand{\cvProfile}{Élève-ingénieur à l'EPITA, stagiaire au sein de l'équipe IA d'Opensee et étudiant-chercheur au LRE. Je m'intéresse à l'intelligence artificielle, au développement logiciel et à la recherche appliquée, et contribue également à des projets open source, notamment dans l'écosystème LangChain.}
 
 % ---------- Expériences ----------
 \newcommand{\cvExperiences}{%
-  \cvexp{Stagiaire IA}{Opensee}{Puteaux}{Sept. 2026 -- présent}{%
-    \cvli{Contribution au développement d'\textbf{Agensee}, solution d'IA agentique dédiée à l'analyse de données financières, au sein de l'équipe IA.}}
-  \cvexp{Étudiant-chercheur, équipe Sécurité \& Systèmes}{Laboratoire de Recherche de l'EPITA (LRE)}{Lyon}{Depuis fév. 2026}{%
-    \cvli{Optimisation de la minimisation des \textbf{S-boxes actives} dans l'outil de cryptanalyse différentielle \textbf{TAGADA} : algorithmes de programmation dynamique \textbf{multithreadés en C++}, adaptés aux contraintes de la bibliothèque.}
-    \cvli{Automatisation de la récupération des tours de chiffrement (parsing JSON), benchmarks conteneurisés (Docker), veille scientifique et synthèse des avancées à l'équipe.}}
-  \cvexp{Assistant pédagogique en programmation}{EPITA (cycle préparatoire) et SupBiotech}{Lyon}{2025 -- 2026}{%
-    \cvli{Accompagnement quotidien d'étudiants de première année en \textbf{C} et \textbf{Python}, Git et Linux (NixOS) ; relecture des sujets et tests de TP, correction (Criterion, GitLab).}}
+  \cvexp{Stagiaire — Équipe IA}{Opensee}{Puteaux}{Depuis sept. 2026}{%
+    \cvli{Contribution au développement d'\textbf{Agensee}, solution d'IA agentique dédiée à l'analyse de données financières.}}
+  \cvexp{Étudiant-chercheur — Sécurité \& Systèmes}{Laboratoire de Recherche de l'EPITA (LRE)}{Lyon}{Depuis fév. 2026}{%
+    \cvli{Recherche et optimisation d'algorithmes de minimisation des \textbf{S-boxes actives} pour la cryptanalyse différentielle avec \textbf{TAGADA}.}
+    \cvli{Programmation dynamique multithreadée en C++, automatisation de traitements JSON et benchmarks avec Docker ; veille et synthèse scientifiques.}}
+  \cvexp{Assistant pédagogique en programmation}{EPITA et SupBiotech}{Lyon}{2025 -- 2026}{%
+    \cvli{Accompagnement d'étudiants en C et Python, aide au débogage et vulgarisation ; relecture et correction de TP (Git, Linux, Criterion, GitLab).}}
   \cvexplast{Bénévole}{Ensemble scolaire Charles de Foucauld}{Lyon}{2016 -- 2023}{%
-    \cvli{Animation d'activités (escape game), tenue de caisse, référent de stand avec une équipe d'une vingtaine de personnes.}}}
+    \cvli{Animation d'activités, tenue de caisse et coordination d'un stand avec une équipe d'une vingtaine de personnes.}}}
 
 % ---------- Projets ----------
 \newcommand{\cvProjects}{%
-  \cvexp{Contributions à \texttt{langchain-aws} (LangChain)}{2 PR fusionnées}{\href{https://github.com/langchain-ai/langchain-aws/pull/1389}{\#1389}, \href{https://github.com/langchain-ai/langchain-aws/pull/1415}{\#1415}}{Oct. 2026}{%
-    \cvli{Ajout des niveaux d'effort de raisonnement (\texttt{reasoning\_effort\_levels}) aux profils de modèles Amazon Bedrock ; valeurs vérifiées à la source, lint et tests validés.}}
+  \cvexp{Contributions open source — \texttt{langchain-aws}}{LangChain}{\href{https://github.com/langchain-ai/langchain-aws/pull/1389}{PR \#1389}, \href{https://github.com/langchain-ai/langchain-aws/pull/1415}{PR \#1415}}{2026}{%
+    \cvli{Deux PR fusionnées : prise en charge des niveaux d'effort de raisonnement dans les profils de modèles Amazon Bedrock (\texttt{reasoning\_effort\_levels}).}}
   \cvexp{Emulators Collection}{Projet personnel · C++20, WebAssembly, React}{\href{https://github.com/Vorpalin/emulators-collection}{GitHub}}{}{%
-    \cvli{Émulateurs \textbf{CHIP-8, Super-CHIP, Atari 2600 et Game Boy} : cœurs C++20 compilés en \textbf{WebAssembly} (Emscripten), frontend React/TypeScript ; CI GitHub Actions, analyse de sécurité, releases automatiques.}}
-  \cvexp{PING, IDE en ligne pour débutants}{EPITA · Java, React}{Équipe agile de 5}{Depuis mars 2026}{%
-    \cvli{Conception produit (état de l'art, interviews, maquettes), interface React, backend Java testé par pipeline CI/CD GitLab, documentation Javadoc.}}
-  \cvexplast{42sh, shell POSIX en C}{EPITA}{Équipe agile de 4}{Janv. 2026}{%
-    \cvli{Lexer et parser, architecture fondée sur les patrons \textbf{visiteur} et \textbf{composite}, revue des merge requests GitLab. Autre projet : Yakamon, API REST Java en couches avec JUnit.}}}
+    \cvli{Développement d'émulateurs CHIP-8, Super-CHIP, Atari 2600 et Game Boy ; cœurs C++20 compilés en WebAssembly (Emscripten), interface React/TypeScript.}}
+  \cvexp{PING — IDE pédagogique en ligne}{EPITA · Java, React}{Équipe agile de 5}{Depuis mars 2026}{%
+    \cvli{Conception produit, développement de l'interface React et du backend Java ; tests automatisés et pipeline CI/CD GitLab.}}
+  \cvexplast{42sh — Shell POSIX en C}{EPITA}{Équipe agile de 4}{Janv. 2026}{%
+    \cvli{Implémentation du lexer et du parser ; architecture reposant sur les patrons \textbf{Visiteur} et \textbf{Composite}, revues de Merge Requests GitLab.}}}
 
 % ---------- Formation ----------
 \newcommand{\cvEducation}{%
-  \cvedu{Diplôme d'ingénieur en informatique}{EPITA}{Lyon}{Sept. 2023 -- 2028}
-  \cvedu{Semestre à l'étranger, Computer Science}{Centria University of Applied Sciences}{Kokkola, Finlande}{Jan. -- mai 2025}
-  \cvedulast{Baccalauréat général}{Lycée Charles de Foucauld}{Lyon}{Juil. 2023}}
+  \cvedu{Diplôme d'ingénieur en informatique}{EPITA}{Lyon}{2023 -- 2028}
+  \cvedu{Semestre universitaire à l'étranger — informatique}{Centria University of Applied Sciences}{Kokkola, Finlande · 30 ECTS}{Janv. -- mai 2025}
+  \cvedulast{Baccalauréat général}{Lycée Charles de Foucauld}{Lyon}{2023}}
 
 \newcommand{\cvAwards}{%
-  \cvaward{Top Scorer 2026}{Challenge du Meilleur étudiant en informatique de France}
-  \cvaward{Open source}{2 PR fusionnées dans langchain-aws}}
+  \cvaward{Top Scorer 2026}{Challenge du Meilleur étudiant en informatique de France}}
 
 % ---------- Compétences, langues, intérêts ----------
 \newcommand{\cvSkills}{%
-  \cvskill{Langages}{C, C++ (C++20), Python, Java, C\#, JavaScript / TypeScript, SQL}
+  \cvskill{Langages}{C, C++20, Python, Java, C\#, JavaScript / TypeScript, SQL}
   \cvskill{IA \& recherche}{IA agentique, cryptanalyse différentielle, programmation dynamique, calcul parallèle}
-  \cvskill{Web \& WASM}{React, Vite, WebAssembly (Emscripten), HTML/CSS, API REST}
-  \cvskill{Outils}{Git (GitHub, GitLab), CI/CD, Docker, CMake, Linux (NixOS), JUnit, Criterion}
-  \cvskill{Bases de données}{PostgreSQL, MySQL}}
+  \cvskill{Développement}{React, Vite, WebAssembly, Emscripten, API REST}
+  \cvskill{Outils}{Git, GitHub Actions, GitLab CI/CD, Docker, CMake, Linux / NixOS}
+  \cvskill{Tests \& données}{Criterion, JUnit, PostgreSQL, MySQL}}
 
 \newcommand{\cvLangItems}{%
   \cvlangitem{Français}{Langue maternelle}
-  \cvlangitem{Anglais}{Niveau C1 · TOEIC 960/990}
+  \cvlangitem{Anglais}{C1 · TOEIC 960/990}
   \cvlangitem{Italien}{Notions}}
 \newcommand{\cvLangShort}{Français (natif), Anglais (C1, TOEIC 960/990), Italien (notions)}
 
 \newcommand{\cvInterests}{%
-  \cvinterest{Tennis de table}{Départemental 1 en équipe, pré-régional en individuel}
+  \cvinterest{Tennis de table}{D1 en équipe, pré-régional en individuel}
   \cvinterest{Cinéma}{}}
