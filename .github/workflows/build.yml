@@ -2,7 +2,7 @@ name: build-cv
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'cv/ia-recherche-2026']
     tags: ['v*']
   pull_request:
 
@@ -21,7 +21,7 @@ jobs:
           sudo apt-get install -y --no-install-recommends \
             make texlive-latex-base texlive-latex-recommended \
             texlive-latex-extra texlive-fonts-recommended \
-            texlive-pictures
+            texlive-pictures texlive-fonts-extra
 
       - name: Compiler les CV
         run: make
