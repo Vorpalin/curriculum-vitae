@@ -1,14 +1,10 @@
 %!TEX program = pdflatex
 % ============================================================
-%  TEMPLATE CV « Informatique x Recherche » — une page
-%  Alexis MIALON
-%  Compilation : pdflatex cv_alexis_mialon.tex  (Overleaf OK)
-%  Aucune police ni paquet exotique.
-%
-%  Structure : Profil > Expériences (industrie + recherche)
-%              > Open source & projets > Formation > Compétences
-%  Pour ajouter une ligne : copier un bloc \entry{...}{...}{...}
-%  suivi d'un environnement itemize.
+%  Modèle CV une colonne « Informatique x Recherche » — 1 page
+%  Compilation : make          (ou, à la main :)
+%    pdflatex "\def\cvlang{fr}\input{cv_one_column.tex}"
+%  Langue : \cvlang = fr | en  (fichiers content/fr.tex, content/en.tex)
+%  Le contenu est dans content/ ; ce fichier ne contient que la mise en page.
 % ============================================================
 \documentclass[10pt,a4paper]{article}
 
@@ -23,6 +19,11 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage[hidelinks,pdftitle={CV - Alexis Mialon},pdfauthor={Alexis Mialon}]{hyperref}
 
+% ---------- Données ----------
+\providecommand{\cvlang}{fr}
+\input{content/personal}
+\input{content/\cvlang}
+
 % ---------- Couleurs (modifier ici pour changer le thème) ----------
 \definecolor{accent}{HTML}{1F6FB2}
 \definecolor{muted}{HTML}{5A5A5A}
@@ -36,100 +37,62 @@
 \titleformat{\section}{\normalsize\bfseries\color{accent}}{}{0pt}{\MakeUppercase}[\vspace{-4.5pt}\textcolor{accent}{\rule{\linewidth}{0.5pt}}]
 \titlespacing*{\section}{0pt}{5.5pt}{2.5pt}
 
-% ---------- Commandes ----------
-% \entry{Titre}{Organisation / contexte}{Date}
+% ---------- Primitives de mise en page ----------
+% \entry{Titre}{Organisation}{Date}
 \newcommand{\entry}[3]{%
   \vspace{2.5pt}%
   \textbf{#1}\ \textcolor{muted}{\small|}\ \textcolor{accent}{\small #2}\hfill\textcolor{muted}{\small #3}\par}
-\newcommand{\tag}[1]{\textcolor{muted}{\small #1}}
+\newcommand{\cvplace}[1]{\def\cvtmp{#1}\ifx\cvtmp\empty\else, #1\fi}
+\newcommand{\cvli}{\item}
+
+% ---------- API de contenu (utilisée par content/*.tex) ----------
+\newcommand{\cvexp}[5]{\entry{#1}{#2\cvplace{#3}}{#4}\begin{itemize}#5\end{itemize}}
+\newcommand{\cvexplast}[5]{\cvexp{#1}{#2}{#3}{#4}{#5}}
+\newcommand{\cvedu}[4]{\entry{#1}{#2\cvplace{#3}}{#4}}
+\newcommand{\cvedulast}[4]{\cvedu{#1}{#2}{#3}{#4}}
+\newif\ifcvfirst
+\newcommand{\cvaward}[2]{\ifcvfirst\cvfirstfalse\else\ \,·\,\ \fi\textbf{#1}, #2}
+\newcommand{\cvskill}[2]{\textbf{#1} & #2 \\[1pt]}
+\newcommand{\cvinterest}[2]{\ifcvfirst\cvfirstfalse\else\ \,·\,\ \fi\textbf{#1}\def\cvtmp{#2}\ifx\cvtmp\empty\else\cvColon#2\fi}
+\newcommand{\cvlangitem}[2]{}
 
 \begin{document}
 \fontsize{9.6}{11.6}\selectfont
 
 % ---------- En-tête ----------
 \begin{center}
-  {\fontsize{21}{24}\selectfont\bfseries Alexis MIALON}\\[2pt]
-  {\normalsize\color{accent}\bfseries Élève-ingénieur EPITA \,·\, IA agentique \,·\, C++ \,·\, Cryptanalyse}\\[3pt]
+  {\fontsize{21}{24}\selectfont\bfseries\cvName}\\[2pt]
+  {\normalsize\color{accent}\bfseries\cvHeadline}\\[3pt]
   {\footnotesize\color{muted}
-    Lyon \,·\, \href{mailto:alexis.mialon69@gmail.com}{alexis.mialon69@gmail.com} \,·\, 06\,76\,15\,68\,88 \,·\,
-    \href{https://www.linkedin.com/in/alexis-mialon-79117b329/}{linkedin.com/in/alexis-mialon-79117b329}\\[1pt]
-    \href{https://github.com/Vorpalin}{github.com/Vorpalin} \,·\,
-    \href{https://vorpalin.github.io/}{vorpalin.github.io}}
+    \cvCity \,·\, \href{mailto:\cvEmail}{\cvEmail} \,·\, \cvPhone \,·\,
+    \href{https://www.linkedin.com/in/\cvLinkedinId/}{linkedin.com/in/\cvLinkedinId}\\[1pt]
+    \href{https://github.com/\cvGithubUser}{github.com/\cvGithubUser} \,·\,
+    \href{https://\cvSite/}{\cvSite}}
 \end{center}
 
 \vspace{-5pt}
-% ---------- Profil ----------
-\section{Profil}
-Élève-ingénieur à l'EPITA (diplôme prévu en 2028), stagiaire IA chez Opensee sur une solution d'IA agentique
-pour l'analyse de données financières et étudiant-chercheur en cryptanalyse différentielle (C++ parallèle).
-Contributeur open source (deux PR fusionnées dans \texttt{langchain-aws}). Je cherche à travailler là où
-l'ingénierie logicielle, l'IA et la recherche se rencontrent.
+\section{\cvLabProfile}
+\cvProfile
 
-% ---------- Expériences ----------
-\section{Expériences}
+\section{\cvLabExp}
+\cvExperiences
 
-\entry{Stagiaire IA}{Opensee, Puteaux}{Sept. 2026 -- présent}
-\begin{itemize}
-  \item Contribution au développement d'\textbf{Agensee}, solution d'IA agentique dédiée à l'analyse de données financières (équipe IA).
-\end{itemize}
+\section{\cvLabProj}
+\cvProjects
 
-\entry{Étudiant-chercheur, équipe Sécurité \& Systèmes}{Laboratoire de Recherche de l'EPITA, Lyon}{Depuis fév. 2026}
-\begin{itemize}
-  \item Optimisation de la minimisation des \textbf{S-boxes actives} dans la recherche de caractéristiques différentielles de l'outil de cryptanalyse \textbf{TAGADA} : algorithmes de \textbf{programmation dynamique multithreadés en C++}, adaptés aux contraintes de la bibliothèque.
-  \item Automatisation de la récupération des tours de chiffrement (parsing JSON), benchmarks conteneurisés (Docker), veille scientifique et synthèse des avancées à l'équipe.
-\end{itemize}
-
-\entry{Assistant pédagogique en programmation}{EPITA (cycle préparatoire) et SupBiotech, Lyon}{2025 -- 2026}
-\begin{itemize}
-  \item Accompagnement quotidien d'étudiants de première année en \textbf{C} et \textbf{Python}, Git et Linux (NixOS) ; relecture des sujets de TP et des tests, correction (Criterion, GitLab).
-\end{itemize}
-
-% ---------- Open source & projets ----------
-\section{Open source \& projets}
-
-\entry{Contributions à \texttt{langchain-aws} (LangChain)}{2 PR fusionnées : \href{https://github.com/langchain-ai/langchain-aws/pull/1389}{\#1389}, \href{https://github.com/langchain-ai/langchain-aws/pull/1415}{\#1415}}{Oct. 2026}
-\begin{itemize}
-  \item Ajout des niveaux d'effort de raisonnement (\texttt{reasoning\_effort\_levels}) aux profils de modèles Amazon Bedrock ; valeurs vérifiées à la source, lint et tests validés.
-\end{itemize}
-
-\entry{Emulators Collection}{C++20, WebAssembly, React \;·\; \href{https://github.com/Vorpalin/emulators-collection}{GitHub}}{Projet personnel}
-\begin{itemize}
-  \item Émulateurs \textbf{CHIP-8, Super-CHIP, Atari 2600 et Game Boy} : cœurs C++20 indépendants du navigateur, compilés en \textbf{WebAssembly} (Emscripten), frontend React/TypeScript/Vite ; CI GitHub Actions, analyse de sécurité, releases automatiques, Docker.
-\end{itemize}
-
-\entry{PING, IDE en ligne pour débutants}{Java, React ; équipe agile de 5, EPITA}{Depuis mars 2026}
-\begin{itemize}
-  \item Conception produit (état de l'art, interviews, maquettes), interface React, tests backend automatisés par pipeline CI/CD GitLab, documentation Javadoc.
-\end{itemize}
-
-\entry{42sh, shell POSIX en C}{équipe agile de 4, EPITA}{Janv. 2026}
-\begin{itemize}
-  \item Lexer et parser, architecture fondée sur les patrons \textbf{visiteur} et \textbf{composite}, revue des merge requests GitLab. \tag{Autre projet : Yakamon, API REST Java en couches avec JUnit (1 semaine).}
-\end{itemize}
-
-% ---------- Formation ----------
-\section{Formation \& distinctions}
-
-\entry{Diplôme d'ingénieur en informatique}{EPITA, Lyon}{Sept. 2023 -- 2028}
-\entry{Semestre à l'étranger, Computer Science}{Centria University of Applied Sciences, Finlande}{Jan. -- mai 2025}
+\section{\cvLabEduAwards}
+\cvEducation
 
 \vspace{2pt}
-\textbf{Top Scorer}, Challenge du Meilleur étudiant en informatique de France 2026 \,·\,
-\textbf{TOEIC} 960/990 \,·\, Baccalauréat général (2023)
+\cvfirsttrue\cvAwards
 
-% ---------- Compétences ----------
-\section{Compétences}
+\section{\cvLabSkills}
 \begin{tabular}{@{}p{2.6cm}p{14.4cm}@{}}
-  \textbf{Langages}        & C, C++ (C++20), Python, Java, C\#, JavaScript / TypeScript, SQL (PostgreSQL, MySQL) \\[1pt]
-  \textbf{IA \& recherche} & IA agentique, cryptanalyse différentielle, programmation dynamique, calcul parallèle \\[1pt]
-  \textbf{Web \& WASM}     & React, Vite, WebAssembly (Emscripten), HTML/CSS, API REST \\[1pt]
-  \textbf{Outils}         & Git (GitHub, GitLab), CI/CD, Docker, CMake, Linux (NixOS), JUnit, Criterion \\[1pt]
-  \textbf{Langues}         & Français (natif), Anglais (C1, TOEIC 960/990), Italien (notions)
+  \cvSkills
+  \textbf{\cvLabLang} & \cvLangShort
 \end{tabular}
 
-% ---------- Divers ----------
-\section{Divers}
-\textbf{Tennis de table} : Départemental~1 par équipes, pré-régional en individuel \,·\, Cinéma \,·\,
-Bénévole (2016--2023) : animation d'activités, référent de stand (équipe d'une vingtaine de personnes).
+\section{\cvLabMisc}
+\cvfirsttrue\cvInterests
 
 \end{document}

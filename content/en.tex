@@ -1,0 +1,74 @@
+% ============================================================
+%  CV content — English version (draft translation, to be proofread)
+%  Same structure as fr.tex.
+% ============================================================
+
+% ---------- Labels ----------
+\newcommand{\cvLabProfile}{Profile}
+\newcommand{\cvLabExp}{Experience}
+\newcommand{\cvLabProj}{Projects \& open source}
+\newcommand{\cvLabEdu}{Education}
+\newcommand{\cvLabEduAwards}{Education \& awards}
+\newcommand{\cvLabSkills}{Skills}
+\newcommand{\cvLabMisc}{Other}
+\newcommand{\cvLabNetworks}{Links}
+\newcommand{\cvLabLang}{Languages}
+\newcommand{\cvLabAwards}{Awards}
+\newcommand{\cvLabInterests}{Interests}
+\newcommand{\cvColon}{: }
+
+% ---------- Headline and profile ----------
+\newcommand{\cvHeadline}{EPITA Engineering Student \,·\, Agentic AI \,·\, C++ \,·\, Cryptanalysis}
+\newcommand{\cvTagline}{Computer Science \& Research}
+\newcommand{\cvProfile}{Engineering student at EPITA (expected graduation in 2028), AI intern at Opensee working on an agentic AI solution for financial data analysis, and student researcher in differential cryptanalysis (parallel C++). Open source contributor (two merged PRs in \texttt{langchain-aws}). I want to work where software engineering, AI and research meet.}
+
+% ---------- Experience ----------
+\newcommand{\cvExperiences}{%
+  \cvexp{AI Intern}{Opensee}{Puteaux, France}{Sept. 2026 -- present}{%
+    \cvli{Contributing to the development of \textbf{Agensee}, an agentic AI solution for financial data analysis, within the AI team.}}
+  \cvexp{Student Researcher, Security \& Systems team}{EPITA Research Laboratory (LRE)}{Lyon, France}{Since Feb. 2026}{%
+    \cvli{Optimizing the minimization of \textbf{active S-boxes} in the differential cryptanalysis tool \textbf{TAGADA}: \textbf{multithreaded C++} dynamic programming algorithms, adapted to the library's constraints.}
+    \cvli{Automating the retrieval of cipher rounds (JSON parsing), containerized benchmarks (Docker), literature review and progress summaries for the team.}}
+  \cvexp{Programming Teaching Assistant}{EPITA (preparatory cycle) and SupBiotech}{Lyon, France}{2025 -- 2026}{%
+    \cvli{Daily support of first-year students in \textbf{C} and \textbf{Python}, Git and Linux (NixOS); reviewing lab subjects and tests, grading (Criterion, GitLab).}}
+  \cvexplast{Volunteer}{Ensemble scolaire Charles de Foucauld}{Lyon, France}{2016 -- 2023}{%
+    \cvli{Activity facilitation (escape game), cash desk, stand lead managing a team of about twenty people.}}}
+
+% ---------- Projects ----------
+\newcommand{\cvProjects}{%
+  \cvexp{Contributions to \texttt{langchain-aws} (LangChain)}{2 merged PRs}{\href{https://github.com/langchain-ai/langchain-aws/pull/1389}{\#1389}, \href{https://github.com/langchain-ai/langchain-aws/pull/1415}{\#1415}}{Oct. 2026}{%
+    \cvli{Added reasoning effort levels (\texttt{reasoning\_effort\_levels}) to Amazon Bedrock model profiles; values checked against the source, lint and tests passing.}}
+  \cvexp{Emulators Collection}{Personal project · C++20, WebAssembly, React}{\href{https://github.com/Vorpalin/emulators-collection}{GitHub}}{}{%
+    \cvli{\textbf{CHIP-8, Super-CHIP, Atari 2600 and Game Boy} emulators: C++20 cores compiled to \textbf{WebAssembly} (Emscripten), React/TypeScript frontend; GitHub Actions CI, security analysis, automated releases.}}
+  \cvexp{PING, online IDE for beginners}{EPITA · Java, React}{Agile team of 5}{Since Mar. 2026}{%
+    \cvli{Product design (state of the art, user interviews, mockups), React interface, Java backend tested through a GitLab CI/CD pipeline, Javadoc documentation.}}
+  \cvexplast{42sh, POSIX shell in C}{EPITA}{Agile team of 4}{Jan. 2026}{%
+    \cvli{Lexer and parser, architecture based on the \textbf{visitor} and \textbf{composite} patterns, GitLab merge request reviews. Other project: Yakamon, layered Java REST API with JUnit.}}}
+
+% ---------- Education ----------
+\newcommand{\cvEducation}{%
+  \cvedu{Engineering degree in Computer Science}{EPITA}{Lyon, France}{Sept. 2023 -- 2028}
+  \cvedu{Semester abroad, Computer Science}{Centria University of Applied Sciences}{Kokkola, Finland}{Jan. -- May 2025}
+  \cvedulast{French Baccalauréat (general track)}{Lycée Charles de Foucauld}{Lyon, France}{July 2023}}
+
+\newcommand{\cvAwards}{%
+  \cvaward{Top Scorer 2026}{French Best Computer Science Student Challenge}
+  \cvaward{Open source}{2 merged PRs in langchain-aws}}
+
+% ---------- Skills, languages, interests ----------
+\newcommand{\cvSkills}{%
+  \cvskill{Languages}{C, C++ (C++20), Python, Java, C\#, JavaScript / TypeScript, SQL}
+  \cvskill{AI \& research}{Agentic AI, differential cryptanalysis, dynamic programming, parallel computing}
+  \cvskill{Web \& WASM}{React, Vite, WebAssembly (Emscripten), HTML/CSS, REST APIs}
+  \cvskill{Tools}{Git (GitHub, GitLab), CI/CD, Docker, CMake, Linux (NixOS), JUnit, Criterion}
+  \cvskill{Databases}{PostgreSQL, MySQL}}
+
+\newcommand{\cvLangItems}{%
+  \cvlangitem{French}{Native}
+  \cvlangitem{English}{C1 level · TOEIC 960/990}
+  \cvlangitem{Italian}{Basic}}
+\newcommand{\cvLangShort}{French (native), English (C1, TOEIC 960/990), Italian (basic)}
+
+\newcommand{\cvInterests}{%
+  \cvinterest{Table tennis}{Departmental 1 (team), pre-regional (individual)}
+  \cvinterest{Cinema}{}}
