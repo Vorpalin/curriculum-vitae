@@ -1,6 +1,6 @@
 %!TEX program = pdflatex
 % ============================================================
-%  Modèle CV deux colonnes — sidebar bleu nuit, accent pétrole
+%  Modèle CV deux colonnes — IA et recherche appliquée
 % ============================================================
 \documentclass[10pt,a4paper]{article}
 
@@ -15,6 +15,8 @@
 \usepackage{eso-pic}
 \usepackage{tikz}
 \usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage{fontawesome5}
 \usepackage[hidelinks,pdftitle={CV - Alexis Mialon},pdfauthor={Alexis Mialon}]{hyperref}
 
 % ---------- Données ----------
@@ -23,8 +25,8 @@
 \input{content/\cvlang}
 
 % ---------- Palette ----------
-\definecolor{accent}{HTML}{39B7B0}   % turquoise
-\definecolor{side}{HTML}{172B3A}     % bleu nuit
+\definecolor{accent}{HTML}{39B7B0}
+\definecolor{side}{HTML}{172B3A}
 \definecolor{sidetext}{HTML}{D4E0E6}
 \definecolor{ink}{HTML}{172B3A}
 \definecolor{body}{HTML}{394B57}
@@ -35,18 +37,17 @@
 \newcommand{\sidew}{6.1cm}
 \newcommand{\sidetextw}{4.7cm}
 \newcommand{\maintextw}{12.5cm}
-
 \AddToShipoutPictureBG*{\AtPageLowerLeft{\color{side}\rule{\sidew}{\paperheight}}}
 
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
-\setlist[itemize]{leftmargin=0.95em,itemsep=0.2pt,topsep=1.2pt,parsep=0pt,partopsep=0pt,label={\textcolor{accent}{\textbullet}}}
+\setlist[itemize]{leftmargin=0.95em,itemsep=0pt,topsep=0.35pt,parsep=0pt,partopsep=0pt,label={\textcolor{accent}{\textbullet}}}
 
 % ---------- Barre latérale ----------
 \newcommand{\sidehead}[1]{%
-  \vspace{8pt}{\color{accent}\bfseries\footnotesize\MakeUppercase{#1}}\par
-  \vspace{2pt}{\color{sideRule}\rule{\sidetextw}{0.45pt}}\par\vspace{3pt}}
+  \vspace{7pt}{\color{accent}\bfseries\footnotesize\MakeUppercase{#1}}\par
+  \vspace{2pt}{\color{sideRule}\rule{\sidetextw}{0.45pt}}\par\vspace{2pt}}
 \newcommand{\sideitem}[2]{%
   {\color{white}\bfseries\small #1}\\[-1pt]
   {\color{sidetext}\footnotesize #2}\par\vspace{3pt}}
@@ -55,19 +56,18 @@
 % ---------- Frise principale ----------
 \newsavebox{\eb}
 \newcommand{\entryfull}[6]{%
-  \vspace{3.6pt}\noindent%
+  \vspace{2.0pt}\noindent%
   \sbox{\eb}{\begin{minipage}[t]{\maintextw}\raggedright
     {\color{ink}\bfseries\normalsize #2}\par
-    {\color{accent}\small\bfseries #4}\hspace{5pt}{\color{muted}\small #3\ifx\relax#5\relax\else\quad\textbullet\quad #5\fi}\par\vspace{1pt}
+    {\color{accent}\small\bfseries #4}\hspace{5pt}{\color{muted}\small #3\ifx\relax#5\relax\else\quad\textbullet\quad #5\fi}\par\vspace{0.5pt}
     #6
   \end{minipage}}%
   \tikz[overlay]{%
     \fill[accent] (-0.5cm,-0.11cm) circle (2.5pt);
     \draw[sideRule,line width=0.8pt] (-0.5cm,-0.11cm) -- (-0.5cm,{-\the\dimexpr\dp\eb+#1+0.11cm\relax});}%
   \usebox{\eb}\par}
-\newcommand{\entry}[5]{\entryfull{7pt}{#1}{#2}{#3}{#4}{#5}}
-\newcommand{\entrylast}[5]{\entryfull{-6pt}{#1}{#2}{#3}{#4}{#5}}
-
+\newcommand{\entry}[5]{\entryfull{5pt}{#1}{#2}{#3}{#4}{#5}}
+\newcommand{\entrylast}[5]{\entryfull{-5pt}{#1}{#2}{#3}{#4}{#5}}
 \newcommand{\maintitle}[1]{%
   {\color{ink}\bfseries\large #1}\par
   \vspace{1pt}{\color{accent}\rule{1.15cm}{1.3pt}}\par\vspace{1pt}}
@@ -79,10 +79,14 @@
 \newcommand{\cvexplast}[5]{\entrylast{#1}{#4}{#2}{#3}{\cvbody{#5}}}
 \newcommand{\cvedu}[4]{\entry{#1}{#4}{#2}{#3}{}}
 \newcommand{\cvedulast}[4]{\entrylast{#1}{#4}{#2}{#3}{}}
-\newcommand{\cvaward}[2]{\sideitem{#1}{#2}}
+\newcommand{\cvaward}[2]{}
 \newcommand{\cvskill}[2]{\sideitem{#1}{#2}}
 \newcommand{\cvinterest}[2]{\sideitem{#1}{#2}}
 \newcommand{\cvlangitem}[2]{\sideitem{#1}{#2}}
+
+% Véritables pictogrammes de marque Font Awesome (LinkedIn et GitHub).
+\newcommand{\cvneticon}[3]{%
+  \href{#1}{\textcolor{accent}{#2}\hspace{4pt}\textcolor{sidetext}{#3}}}
 
 \begin{document}
 \noindent\hspace*{0.65cm}%
@@ -93,14 +97,13 @@
   {\color{accent}\footnotesize\bfseries\cvTagline}\par\vspace{8pt}
   {\color{sideRule}\rule{\sidetextw}{0.5pt}}\par\vspace{6pt}
 
-  \sideline{\textcolor{accent}{\textbullet}\ \cvEmail}
-  \sideline{\textcolor{accent}{\textbullet}\ \cvCity}
-  \sideline{\textcolor{accent}{\textbullet}\ \cvPhone}
+  \sideline{\textcolor{accent}{\faEnvelope}\hspace{5pt}\cvEmail}
+  \sideline{\textcolor{accent}{\faMapMarker*}\hspace{5pt}\cvCity}
+  \sideline{\textcolor{accent}{\faPhone}\hspace{5pt}\cvPhone}
 
   \sidehead{\cvLabNetworks}
-  \sideline{\href{https://www.linkedin.com/in/\cvLinkedinId/}{\textcolor{sidetext}{linkedin.com/in/\cvLinkedinId}}}
-  \sideline{\href{https://github.com/\cvGithubUser}{\textcolor{sidetext}{github.com/\cvGithubUser}}}
-  \sideline{\href{https://\cvSite/}{\textcolor{sidetext}{\cvSite}}}
+  \sideline{\cvneticon{https://www.linkedin.com/in/\cvLinkedinId/}{\faLinkedin}{LinkedIn}}
+  \sideline{\cvneticon{https://github.com/\cvGithubUser}{\faGithub}{GitHub}}
 
   \sidehead{\cvLabLang}
   \cvLangItems
@@ -108,25 +111,26 @@
   \sidehead{\cvLabSkills}
   \cvSkills
 
-  \sidehead{\cvLabAwards}
-  \cvAwards
-
   \sidehead{\cvLabInterests}
   \cvInterests
 \end{minipage}%
 \hspace{1.75cm}%
 \begin{minipage}[t][29.2cm][t]{\maintextw}\raggedright
   \vspace{0.72cm}
-  {\color{muted}\small\MakeUppercase{\cvLabProfile}}\par\vspace{2pt}
-  {\color{body}\small\cvProfile}\par
+  {\color{accent}\bfseries\fontsize{16}{18}\selectfont
+    \parbox[t]{\maintextw}{\MakeUppercase{\cvObjective}}}\par
+  \vspace{5pt}
+  {\color{accent}\rule{2.2cm}{1.6pt}}\par\vspace{4pt}
+  {\color{body}\small\cvProfile\par}
+  \vspace{5pt}
 
-  \vspace{6pt}\maintitle{\cvLabExp}
+  \maintitle{\cvLabExp}
   \cvExperiences
 
-  \vspace{5pt}\maintitle{\cvLabProj}
+  \vspace{3pt}\maintitle{\cvLabProj}
   \cvProjects
 
-  \vspace{5pt}\maintitle{\cvLabEdu}
+  \vspace{3pt}\maintitle{\cvLabEdu}
   \cvEducation
 \end{minipage}
 \end{document}
