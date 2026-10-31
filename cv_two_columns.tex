@@ -1,6 +1,6 @@
 %!TEX program = pdflatex
 % ============================================================
-%  Modèle CV deux colonnes — sidebar bleu nuit, accent pétrole
+%  Modèle CV deux colonnes — IA et recherche appliquée
 % ============================================================
 \documentclass[10pt,a4paper]{article}
 
@@ -23,8 +23,8 @@
 \input{content/\cvlang}
 
 % ---------- Palette ----------
-\definecolor{accent}{HTML}{39B7B0}   % turquoise
-\definecolor{side}{HTML}{172B3A}     % bleu nuit
+\definecolor{accent}{HTML}{39B7B0}
+\definecolor{side}{HTML}{172B3A}
 \definecolor{sidetext}{HTML}{D4E0E6}
 \definecolor{ink}{HTML}{172B3A}
 \definecolor{body}{HTML}{394B57}
@@ -35,13 +35,12 @@
 \newcommand{\sidew}{6.1cm}
 \newcommand{\sidetextw}{4.7cm}
 \newcommand{\maintextw}{12.5cm}
-
 \AddToShipoutPictureBG*{\AtPageLowerLeft{\color{side}\rule{\sidew}{\paperheight}}}
 
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
-\setlist[itemize]{leftmargin=0.95em,itemsep=0.2pt,topsep=1.2pt,parsep=0pt,partopsep=0pt,label={\textcolor{accent}{\textbullet}}}
+\setlist[itemize]{leftmargin=0.95em,itemsep=0pt,topsep=0.8pt,parsep=0pt,partopsep=0pt,label={\textcolor{accent}{\textbullet}}}
 
 % ---------- Barre latérale ----------
 \newcommand{\sidehead}[1]{%
@@ -55,7 +54,7 @@
 % ---------- Frise principale ----------
 \newsavebox{\eb}
 \newcommand{\entryfull}[6]{%
-  \vspace{3.6pt}\noindent%
+  \vspace{3.0pt}\noindent%
   \sbox{\eb}{\begin{minipage}[t]{\maintextw}\raggedright
     {\color{ink}\bfseries\normalsize #2}\par
     {\color{accent}\small\bfseries #4}\hspace{5pt}{\color{muted}\small #3\ifx\relax#5\relax\else\quad\textbullet\quad #5\fi}\par\vspace{1pt}
@@ -67,7 +66,6 @@
   \usebox{\eb}\par}
 \newcommand{\entry}[5]{\entryfull{7pt}{#1}{#2}{#3}{#4}{#5}}
 \newcommand{\entrylast}[5]{\entryfull{-6pt}{#1}{#2}{#3}{#4}{#5}}
-
 \newcommand{\maintitle}[1]{%
   {\color{ink}\bfseries\large #1}\par
   \vspace{1pt}{\color{accent}\rule{1.15cm}{1.3pt}}\par\vspace{1pt}}
@@ -83,12 +81,14 @@
 \newcommand{\cvskill}[2]{\sideitem{#1}{#2}}
 \newcommand{\cvinterest}[2]{\sideitem{#1}{#2}}
 \newcommand{\cvlangitem}[2]{\sideitem{#1}{#2}}
+\newcommand{\cvneticon}[3]{\href{#1}{\colorbox{accent}{\textcolor{white}{\scriptsize\bfseries #2}}\hspace{2pt}\textcolor{sidetext}{#3}}}
 
 \begin{document}
 \noindent\hspace*{0.65cm}%
 \begin{minipage}[t][29.2cm][t]{\sidetextw}\raggedright
   \vspace{0.72cm}
   \IfFileExists{photo.jpg}{\noindent\includegraphics[width=2.55cm,height=2.55cm,keepaspectratio]{photo.jpg}\par\vspace{7pt}}{}
+  {\color{accent}\bfseries\tiny\cvObjective}\par\vspace{3pt}
   {\color{white}\bfseries\Large\cvName}\par\vspace{2pt}
   {\color{accent}\footnotesize\bfseries\cvTagline}\par\vspace{8pt}
   {\color{sideRule}\rule{\sidetextw}{0.5pt}}\par\vspace{6pt}
@@ -98,9 +98,8 @@
   \sideline{\textcolor{accent}{\textbullet}\ \cvPhone}
 
   \sidehead{\cvLabNetworks}
-  \sideline{\href{https://www.linkedin.com/in/\cvLinkedinId/}{\textcolor{sidetext}{linkedin.com/in/\cvLinkedinId}}}
-  \sideline{\href{https://github.com/\cvGithubUser}{\textcolor{sidetext}{github.com/\cvGithubUser}}}
-  \sideline{\href{https://\cvSite/}{\textcolor{sidetext}{\cvSite}}}
+  \sideline{\cvneticon{https://www.linkedin.com/in/\cvLinkedinId/}{in}{LinkedIn}}
+  \sideline{\cvneticon{https://github.com/\cvGithubUser}{GH}{GitHub}}
 
   \sidehead{\cvLabLang}
   \cvLangItems
