@@ -7,6 +7,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[scaled=0.92]{helvet}
+\input{glyphtounicode}
+\pdfgentounicode=1
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{microtype}
 \usepackage[a4paper,margin=0pt,nohead,nofoot]{geometry}
@@ -16,13 +18,14 @@
 \usepackage{tikz}
 \usepackage{enumitem}
 \usepackage{fontawesome5}
-\usepackage{fontawesome5}
-\usepackage[hidelinks,pdftitle={CV - Alexis Mialon},pdfauthor={Alexis Mialon}]{hyperref}
+\usepackage[hidelinks,pdfdisplaydoctitle=true]{hyperref}
 
 % ---------- Data ----------
 \providecommand{\cvlang}{fr}
 \input{content/personal}
+\providecommand{\cvPhoneURI}{\cvPhone} % Override locally with digits-only international format for tel: links.
 \input{content/\cvlang}
+\hypersetup{pdftitle={CV - \cvName},pdfauthor={\cvName},pdflang={\cvlang},pdfsubject={\cvPdfSubject}}
 
 % ---------- Palette ----------
 \definecolor{accent}{HTML}{39B7B0}
@@ -50,8 +53,8 @@
   \vspace{2pt}{\color{sideRule}\rule{\sidetextw}{0.45pt}}\par\vspace{2pt}}
 \newcommand{\sideitem}[2]{%
   {\color{white}\bfseries\small #1}\\[-1pt]
-  {\color{sidetext}\footnotesize #2}\par\vspace{3pt}}
-\newcommand{\sideline}[1]{{\color{sidetext}\footnotesize #1}\par\vspace{2.5pt}}
+  {\color{sidetext}\fontsize{8.5}{10}\selectfont #2}\par\vspace{3pt}}
+\newcommand{\sideline}[1]{{\color{sidetext}\fontsize{8.5}{10}\selectfont #1}\par\vspace{2.5pt}}
 
 % ---------- Main timeline ----------
 \newsavebox{\eb}
@@ -90,7 +93,7 @@
 
 \begin{document}
 \noindent\hspace*{0.65cm}%
-\begin{minipage}[t][29.2cm][t]{\sidetextw}\raggedright
+\begin{minipage}[t]{\sidetextw}\raggedright
   \vspace{0.72cm}
   \IfFileExists{photo.jpg}{\noindent\includegraphics[width=2.55cm,height=2.55cm,keepaspectratio]{photo.jpg}\par\vspace{7pt}}{}
   {\color{white}\bfseries\Large\cvName}\par\vspace{2pt}
@@ -99,7 +102,7 @@
 
   \sideline{\textcolor{accent}{\faEnvelope}\hspace{5pt}\cvEmail}
   \sideline{\textcolor{accent}{\faMapMarker*}\hspace{5pt}\cvCity}
-  \sideline{\textcolor{accent}{\faPhone}\hspace{5pt}\cvPhone}
+  \sideline{\textcolor{accent}{\faPhone}\hspace{5pt}\href{tel:\cvPhoneURI}{\cvPhone}}
 
   \sidehead{\cvLabNetworks}
   \sideline{\cvneticon{https://www.linkedin.com/in/\cvLinkedinId/}{\faLinkedin}{LinkedIn}}
@@ -118,7 +121,7 @@
   \cvInterests
 \end{minipage}%
 \hspace{1.75cm}%
-\begin{minipage}[t][29.2cm][t]{\maintextw}\raggedright
+\begin{minipage}[t]{\maintextw}\raggedright
   \vspace{0.72cm}
   {\color{accent}\bfseries\fontsize{16}{18}\selectfont
     \parbox[t]{\maintextw}{\MakeUppercase{\cvObjective}}}\par

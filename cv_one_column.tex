@@ -7,17 +7,23 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{newtxtext}
+\input{glyphtounicode}
+\pdfgentounicode=1
 \usepackage{microtype}
 \usepackage[top=0.78cm,bottom=0.72cm,left=1.25cm,right=1.25cm]{geometry}
 \usepackage{xcolor}
 \usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
 \usepackage[shortlabels]{enumitem}
-\usepackage[hidelinks,pdftitle={CV - Alexis Mialon},pdfauthor={Alexis Mialon}]{hyperref}
+\usepackage[hidelinks,pdfdisplaydoctitle=true]{hyperref}
 
 % ---------- Data ----------
 \providecommand{\cvlang}{fr}
 \input{content/personal}
+\providecommand{\cvPhoneURI}{\cvPhone} % Override locally with digits-only international format for tel: links.
 \input{content/\cvlang}
+\hypersetup{pdftitle={CV - \cvName},pdfauthor={\cvName},pdflang={\cvlang},pdfsubject={\cvPdfSubject}}
 
 % ---------- Palette ----------
 \definecolor{accent}{HTML}{174F9A}
@@ -57,7 +63,7 @@
 \newcommand{\cvneticon}[3]{\href{#1}{\textcolor{accent}{\textbf{#2}}\hspace{2pt}\textcolor{muted}{#3}}}
 
 \begin{document}
-\fontsize{8.8}{9.8}\selectfont
+\fontsize{9.0}{10.2}\selectfont
 
 % ---------- Centered header ----------
 \begin{center}
@@ -66,7 +72,7 @@
   {\small\color{muted}
     \cvCity \quad\textbullet\quad
     \href{mailto:\cvEmail}{\cvEmail} \quad\textbullet\quad
-    \cvPhone \quad\textbullet\quad
+    \href{tel:\cvPhoneURI}{\cvPhone} \quad\textbullet\quad
     \cvneticon{https://www.linkedin.com/in/\cvLinkedinId/}{in}{LinkedIn}
     \quad\textbullet\quad
     \cvneticon{https://github.com/\cvGithubUser}{GH}{GitHub}
@@ -92,10 +98,10 @@
 
 % ---------- Technical skills ----------
 \section{\cvLabTechSkills}
-\begin{tabular}{@{}p{2.5cm}p{16.0cm}@{}}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}X@{}}
   \cvSkills
   \textbf{\color{ink}\cvLabLang} & \cvLangShort
-\end{tabular}
+\end{tabularx}
 
 % ---------- Soft skills ----------
 \section{\cvLabSoftSkills}

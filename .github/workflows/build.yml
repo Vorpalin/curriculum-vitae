@@ -6,17 +6,28 @@ on:
     tags: ['v*']
   pull_request:
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
   build:
+    permissions:
+      contents: read
     # Secrets are not available to workflows triggered by pull requests from forks.
     # Same-repository PRs can still build normally.
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # Cache downloaded Debian packages: TeX Live is large, and GitHub-hosted
+      # runners start from a clean image on every workflow run.
+      - name: Cache APT packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives/*.deb
+          key: apt-${{ runner.os }}-texlive-v1
+          restore-keys: |
+            apt-${{ runner.os }}-texlive-
 
       - name: Install LaTeX
         run: |
@@ -25,7 +36,7 @@ jobs:
             make texlive-latex-base texlive-latex-recommended \
             texlive-latex-extra texlive-fonts-recommended \
             texlive-plain-generic tex-gyre \
-            texlive-pictures texlive-fonts-extra
+            texlive-pictures texlive-fonts-extra poppler-utils
 
       - name: Use empty personal data template for pull requests
         if: github.event_name == 'pull_request'
@@ -43,6 +54,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import os
+          import re
           from pathlib import Path
 
           def latex_escape(value: str) -> str:
@@ -54,6 +66,10 @@ jobs:
                   "^": r"\textasciicircum{}",
               }
               return "".join(replacements.get(char, char) for char in value)
+
+          phone = re.sub(r"[^0-9+]", "", os.environ["CV_PHONE"])
+          if not re.fullmatch(r"\+[1-9][0-9]{7,14}", phone):
+              raise SystemExit("CV_PHONE must be international, e.g. +33612345678")
 
           fields = {
               "cvName": "CV_NAME",
@@ -73,22 +89,70 @@ jobs:
                   "\\newcommand{\\" + macro + "}{" + latex_escape(os.environ[secret]) + "}"
                   for macro, secret in fields.items()
               ],
+              "\\newcommand{\\cvPhoneURI}{" + phone + "}",
               "",
           ]
           Path("content/personal.tex").write_text("\n".join(lines), encoding="utf-8")
           PY
 
       - name: Build the CVs
-        run: make
+        run: make --jobs=2
 
-      - name: Upload PDFs as artifact
+      - name: Check PDF page count, text extraction and embedded fonts
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          pdfs=(build/*.pdf)
+          test "${#pdfs[@]}" -eq 4
+          for pdf in "${pdfs[@]}"; do
+            pages="$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')"
+            if [ "$pages" != "1" ]; then
+              echo "::error file=$pdf::Expected exactly one page, got $pages"
+              exit 1
+            fi
+            text_file="${pdf%.pdf}.txt"
+            pdftotext -layout "$pdf" "$text_file"
+            if [ ! -s "$text_file" ] || [ "$(wc -c < "$text_file")" -lt 100 ]; then
+              echo "::error file=$pdf::Text extraction is empty or unexpectedly short"
+              exit 1
+            fi
+            # pdffonts has a two-word "Type 1" field; count backwards from the
+            # stable trailing columns (emb, sub, uni, object ID) instead.
+            if ! pdffonts "$pdf" | awk 'NR > 2 && $(NF-4) != "yes" { bad=1; print; } END { exit bad }'; then
+              echo "::error file=$pdf::At least one font is not embedded"
+              exit 1
+            fi
+          done
+
+      - name: Render PDF previews
+        run: |
+          for pdf in build/*.pdf; do
+            pdftoppm -f 1 -l 1 -singlefile -png -r 120 "$pdf" "build/preview-$(basename "${pdf%.pdf}")"
+          done
+
+      - name: Upload PDFs and visual previews
         uses: actions/upload-artifact@v4
         with:
-          name: cv-pdf
-          path: build/*.pdf
+          name: cv-review
+          path: |
+            build/*.pdf
+            build/preview-*.png
 
-      - name: Create a release (on v* tag)
-        if: startsWith(github.ref, 'refs/tags/v')
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - name: Download generated PDFs
+        uses: actions/download-artifact@v4
+        with:
+          name: cv-review
+          path: dist
+      - name: Create a release
         uses: softprops/action-gh-release@v2
         with:
-          files: build/*.pdf
+          files: dist/*.pdf
