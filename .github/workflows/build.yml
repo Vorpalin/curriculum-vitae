@@ -94,13 +94,14 @@ jobs:
               echo "::error file=$pdf::Expected exactly one page, got $pages"
               exit 1
             fi
-            pdftotext -layout "$pdf" -
-            if ! pdffonts "$pdf" | awk 'NR > 2 && $4 != "yes" { bad=1; print; } END { exit bad }'; then
-              echo "::error file=$pdf::At least one font is not embedded"
+            text_file="${pdf%.pdf}.txt"
+            pdftotext -layout "$pdf" "$text_file"
+            if [ ! -s "$text_file" ] || [ "$(wc -c < "$text_file")" -lt 100 ]; then
+              echo "::error file=$pdf::Text extraction is empty or unexpectedly short"
               exit 1
             fi
-            if [ "$(pdftotext "$pdf" - | wc -c)" -lt 100 ]; then
-              echo "::error file=$pdf::Text extraction is empty or unexpectedly short"
+            if ! pdffonts "$pdf" | awk 'NR > 2 && $4 != "yes" { bad=1; print; } END { exit bad }'; then
+              echo "::error file=$pdf::At least one font is not embedded"
               exit 1
             fi
           done
