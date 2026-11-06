@@ -19,6 +19,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Cache downloaded Debian packages: TeX Live is large, and GitHub-hosted
+      # runners start from a clean image on every workflow run.
+      - name: Cache APT packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives/*.deb
+          key: apt-${{ runner.os }}-texlive-v1
+          restore-keys: |
+            apt-${{ runner.os }}-texlive-
+
       - name: Install LaTeX
         run: |
           sudo apt-get update
@@ -86,7 +96,7 @@ jobs:
           PY
 
       - name: Build the CVs
-        run: make
+        run: make --jobs=2
 
       - name: Check PDF page count, text extraction and embedded fonts
         shell: bash
