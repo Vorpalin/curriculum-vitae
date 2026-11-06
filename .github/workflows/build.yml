@@ -34,12 +34,12 @@ jobs:
       - name: Generate private personal data file
         if: github.event_name != 'pull_request'
         env:
-          CV_NAME: \${{ secrets.CV_NAME }}
-          CV_CITY: \${{ secrets.CV_CITY }}
-          CV_EMAIL: \${{ secrets.CV_EMAIL }}
-          CV_PHONE: \${{ secrets.CV_PHONE }}
-          CV_LINKEDIN_ID: \${{ secrets.CV_LINKEDIN_ID }}
-          CV_GITHUB_USER: \${{ secrets.CV_GITHUB_USER }}
+          CV_NAME: ${{ secrets.CV_NAME }}
+          CV_CITY: ${{ secrets.CV_CITY }}
+          CV_EMAIL: ${{ secrets.CV_EMAIL }}
+          CV_PHONE: ${{ secrets.CV_PHONE }}
+          CV_LINKEDIN_ID: ${{ secrets.CV_LINKEDIN_ID }}
+          CV_GITHUB_USER: ${{ secrets.CV_GITHUB_USER }}
         run: |
           python3 - <<'PY'
           import os
