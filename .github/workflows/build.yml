@@ -44,6 +44,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import os
+          import re
           from pathlib import Path
 
           def latex_escape(value: str) -> str:
@@ -57,7 +58,7 @@ jobs:
               return "".join(replacements.get(char, char) for char in value)
 
           phone = re.sub(r"[^0-9+]", "", os.environ["CV_PHONE"])
-          if not re.fullmatch(r"\\+[1-9][0-9]{7,14}", phone):
+          if not re.fullmatch(r"\+[1-9][0-9]{7,14}", phone):
               raise SystemExit("CV_PHONE must be international, e.g. +33612345678")
 
           fields = {
