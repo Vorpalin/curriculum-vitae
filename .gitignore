@@ -3,3 +3,6 @@
 *.pdf
 *.out
 build/
+
+# Private personal data (local file; generated from GitHub Secrets in CI)
+content/personal.tex

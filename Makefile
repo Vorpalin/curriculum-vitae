@@ -9,6 +9,11 @@ PDFS      := $(foreach t,$(TEMPLATES),$(foreach l,$(LANGS),build/$(t)_$(l).pdf))
 .PHONY: all clean
 all: $(PDFS)
 
+# Give a useful message instead of a cryptic missing-prerequisite error.
+content/personal.tex:
+	@echo "Missing content/personal.tex. Copy content/personal.example.tex to content/personal.tex and fill in your details." >&2
+	@exit 1
+
 define build_rule
 build/$(1)_$(2).pdf: $(1).tex content/$(2).tex content/personal.tex $(wildcard photo.jpg)
 	@mkdir -p build
