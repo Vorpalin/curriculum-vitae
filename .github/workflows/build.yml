@@ -6,11 +6,12 @@ on:
     tags: ['v*']
   pull_request:
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
   build:
+    permissions:
+      contents: read
     # Secrets are not available to workflows triggered by pull requests from forks.
     # Same-repository PRs can still build normally.
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
@@ -106,14 +107,34 @@ jobs:
             fi
           done
 
-      - name: Upload PDFs as artifact
+      - name: Render PDF previews
+        run: |
+          for pdf in build/*.pdf; do
+            pdftoppm -f 1 -l 1 -singlefile -png -r 120 "$pdf" "build/preview-$(basename "${pdf%.pdf}")"
+          done
+
+      - name: Upload PDFs and visual previews
         uses: actions/upload-artifact@v4
         with:
-          name: cv-pdf
-          path: build/*.pdf
+          name: cv-review
+          path: |
+            build/*.pdf
+            build/preview-*.png
 
-      - name: Create a release (on v* tag)
-        if: startsWith(github.ref, 'refs/tags/v')
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - name: Download generated PDFs
+        uses: actions/download-artifact@v4
+        with:
+          name: cv-review
+          path: dist
+      - name: Create a release
         uses: softprops/action-gh-release@v2
         with:
-          files: build/*.pdf
+          files: dist/*.pdf
