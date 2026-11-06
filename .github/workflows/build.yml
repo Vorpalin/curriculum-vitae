@@ -107,7 +107,9 @@ jobs:
               echo "::error file=$pdf::Text extraction is empty or unexpectedly short"
               exit 1
             fi
-            if ! pdffonts "$pdf" | awk 'NR > 2 && $4 != "yes" { bad=1; print; } END { exit bad }'; then
+            # pdffonts has a two-word "Type 1" field; count backwards from the
+            # stable trailing columns (emb, sub, uni, object ID) instead.
+            if ! pdffonts "$pdf" | awk 'NR > 2 && $(NF-4) != "yes" { bad=1; print; } END { exit bad }'; then
               echo "::error file=$pdf::At least one font is not embedded"
               exit 1
             fi
