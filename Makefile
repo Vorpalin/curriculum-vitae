@@ -1,7 +1,7 @@
-# Compile les CV (une/deux colonnes x fr/en) dans build/
-# Usage : make          -> tous les PDF
-#         make build/cv_two_columns_fr.pdf
-#         make clean
+# Builds the CVs (one/two columns x fr/en) into build/
+# Usage: make          -> all PDFs
+#        make build/cv_two_columns_fr.pdf
+#        make clean
 TEMPLATES := cv_one_column cv_two_columns
 LANGS     := fr en
 PDFS      := $(foreach t,$(TEMPLATES),$(foreach l,$(LANGS),build/$(t)_$(l).pdf))
