@@ -119,7 +119,7 @@ jobs:
             positions = [text.find(label) for label in labels]
             if any(pos < 0 for pos in positions) or positions != sorted(positions):
                 raise SystemExit(f"{pdf}: expected main-section reading order {labels}, got {positions}")
-            PY
+          PY
           done
 
       - name: Render PDF previews
