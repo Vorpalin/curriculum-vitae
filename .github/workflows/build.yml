@@ -25,7 +25,7 @@ jobs:
             make texlive-latex-base texlive-latex-recommended \
             texlive-latex-extra texlive-fonts-recommended \
             texlive-plain-generic tex-gyre \
-            texlive-pictures texlive-fonts-extra
+            texlive-pictures texlive-fonts-extra poppler-utils
 
       - name: Use empty personal data template for pull requests
         if: github.event_name == 'pull_request'
@@ -80,6 +80,30 @@ jobs:
 
       - name: Build the CVs
         run: make
+
+      - name: Check PDF page count, text extraction and embedded fonts
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          pdfs=(build/*.pdf)
+          test "${#pdfs[@]}" -eq 4
+          for pdf in "${pdfs[@]}"; do
+            pages="$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')"
+            if [ "$pages" != "1" ]; then
+              echo "::error file=$pdf::Expected exactly one page, got $pages"
+              exit 1
+            fi
+            pdftotext -layout "$pdf" -
+            if ! pdffonts "$pdf" | awk 'NR > 2 && $4 != "yes" { bad=1; print; } END { exit bad }'; then
+              echo "::error file=$pdf::At least one font is not embedded"
+              exit 1
+            fi
+            if [ "$(pdftotext "$pdf" - | wc -c)" -lt 100 ]; then
+              echo "::error file=$pdf::Text extraction is empty or unexpectedly short"
+              exit 1
+            fi
+          done
 
       - name: Upload PDFs as artifact
         uses: actions/upload-artifact@v4
