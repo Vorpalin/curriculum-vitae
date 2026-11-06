@@ -11,8 +11,10 @@
 \usepackage[top=0.78cm,bottom=0.72cm,left=1.25cm,right=1.25cm]{geometry}
 \usepackage{xcolor}
 \usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
 \usepackage[shortlabels]{enumitem}
-\usepackage[hidelinks,pdftitle={CV - Alexis Mialon},pdfauthor={Alexis Mialon}]{hyperref}
+\usepackage[hidelinks,pdfdisplaydoctitle=true]{hyperref}
 
 % ---------- Data ----------
 \providecommand{\cvlang}{fr}
@@ -57,7 +59,7 @@
 \newcommand{\cvneticon}[3]{\href{#1}{\textcolor{accent}{\textbf{#2}}\hspace{2pt}\textcolor{muted}{#3}}}
 
 \begin{document}
-\fontsize{8.8}{9.8}\selectfont
+\fontsize{9.0}{10.2}\selectfont
 
 % ---------- Centered header ----------
 \begin{center}
@@ -92,10 +94,10 @@
 
 % ---------- Technical skills ----------
 \section{\cvLabTechSkills}
-\begin{tabular}{@{}p{2.5cm}p{16.0cm}@{}}
+\begin{tabularx}{\\linewidth}{@{}>{\\raggedright\\arraybackslash}p{2.6cm}X@{}}
   \cvSkills
   \textbf{\color{ink}\cvLabLang} & \cvLangShort
-\end{tabular}
+\end{tabularx}
 
 % ---------- Soft skills ----------
 \section{\cvLabSoftSkills}
