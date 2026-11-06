@@ -16,8 +16,7 @@
 \usepackage{tikz}
 \usepackage{enumitem}
 \usepackage{fontawesome5}
-\usepackage{fontawesome5}
-\usepackage[hidelinks,pdftitle={CV - Alexis Mialon},pdfauthor={Alexis Mialon}]{hyperref}
+\usepackage[hidelinks,pdfdisplaydoctitle=true]{hyperref}
 
 % ---------- Data ----------
 \providecommand{\cvlang}{fr}
@@ -50,8 +49,8 @@
   \vspace{2pt}{\color{sideRule}\rule{\sidetextw}{0.45pt}}\par\vspace{2pt}}
 \newcommand{\sideitem}[2]{%
   {\color{white}\bfseries\small #1}\\[-1pt]
-  {\color{sidetext}\footnotesize #2}\par\vspace{3pt}}
-\newcommand{\sideline}[1]{{\color{sidetext}\footnotesize #1}\par\vspace{2.5pt}}
+  {\color{sidetext}\fontsize{8.5}{10}\selectfont #2}\par\vspace{3pt}}
+\newcommand{\sideline}[1]{{\color{sidetext}\fontsize{8.5}{10}\selectfont #1}\par\vspace{2.5pt}}
 
 % ---------- Main timeline ----------
 \newsavebox{\eb}
@@ -90,7 +89,7 @@
 
 \begin{document}
 \noindent\hspace*{0.65cm}%
-\begin{minipage}[t][29.2cm][t]{\sidetextw}\raggedright
+\begin{minipage}[t]{\sidetextw}\raggedright
   \vspace{0.72cm}
   \IfFileExists{photo.jpg}{\noindent\includegraphics[width=2.55cm,height=2.55cm,keepaspectratio]{photo.jpg}\par\vspace{7pt}}{}
   {\color{white}\bfseries\Large\cvName}\par\vspace{2pt}
@@ -118,7 +117,7 @@
   \cvInterests
 \end{minipage}%
 \hspace{1.75cm}%
-\begin{minipage}[t][29.2cm][t]{\maintextw}\raggedright
+\begin{minipage}[t]{\maintextw}\raggedright
   \vspace{0.72cm}
   {\color{accent}\bfseries\fontsize{16}{18}\selectfont
     \parbox[t]{\maintextw}{\MakeUppercase{\cvObjective}}}\par
