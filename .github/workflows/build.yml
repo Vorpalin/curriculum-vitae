@@ -56,6 +56,10 @@ jobs:
               }
               return "".join(replacements.get(char, char) for char in value)
 
+          phone = re.sub(r"[^0-9+]", "", os.environ["CV_PHONE"])
+          if not re.fullmatch(r"\\+[1-9][0-9]{7,14}", phone):
+              raise SystemExit("CV_PHONE must be international, e.g. +33612345678")
+
           fields = {
               "cvName": "CV_NAME",
               "cvCity": "CV_CITY",
@@ -74,6 +78,7 @@ jobs:
                   "\\newcommand{\\" + macro + "}{" + latex_escape(os.environ[secret]) + "}"
                   for macro, secret in fields.items()
               ],
+              "\\newcommand{\\cvPhoneURI}{" + phone + "}",
               "",
           ]
           Path("content/personal.tex").write_text("\n".join(lines), encoding="utf-8")
@@ -105,6 +110,15 @@ jobs:
               echo "::error file=$pdf::At least one font is not embedded"
               exit 1
             fi
+            python3 - "$pdf" "$text_file" <<'PY'
+            import pathlib, sys
+            pdf, path = sys.argv[1:]
+            text = pathlib.Path(path).read_text(encoding="utf-8", errors="replace").casefold()
+            labels = ("formation", "expériences", "projets") if "_one_column_fr" in pdf else ("education", "experience", "projects") if "_one_column_en" in pdf else ("expériences", "projets", "formation") if "_two_columns_fr" in pdf else ("experience", "projects", "education")
+            positions = [text.find(label) for label in labels]
+            if any(pos < 0 for pos in positions) or positions != sorted(positions):
+                raise SystemExit(f"{pdf}: expected main-section reading order {labels}, got {positions}")
+            PY
           done
 
       - name: Render PDF previews
