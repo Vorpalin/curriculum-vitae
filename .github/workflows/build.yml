@@ -123,7 +123,7 @@ jobs:
               echo "::error file=$pdf::At least one font is not embedded"
               exit 1
             fi
-            python3 -c 'import pathlib,sys; pdf,path=sys.argv[1:]; text=pathlib.Path(path).read_text(encoding="utf-8",errors="replace").casefold(); labels=("formation","expériences","projets") if "_one_column_fr" in pdf else ("education","experience","projects") if "_one_column_en" in pdf else ("expériences","projets","formation") if "_two_columns_fr" in pdf else ("experience","projects","education"); positions=[text.find(label) for label in labels]; sys.exit(0 if all(pos >= 0 for pos in positions) and positions == sorted(positions) else f"{pdf}: expected reading order {labels}, got {positions}")' "$pdf" "$text_file"
+            python3 -c 'import pathlib,re,sys; pdf,path=sys.argv[1:]; text=pathlib.Path(path).read_text(encoding="utf-8",errors="replace"); labels=("formation","expériences","projets") if "_one_column_fr" in pdf else ("education","experience","projects") if "_one_column_en" in pdf else ("expériences","projets","formation") if "_two_columns_fr" in pdf else ("experience","projects","education"); positions=[(m.start() if (m:=re.search(r"(?im)^\\s*"+re.escape(label)+r"(?:\\s*(?:&|—|-) .*)?\\s*$",text)) else -1) for label in labels]; sys.exit(0 if all(pos >= 0 for pos in positions) and positions == sorted(positions) else f"{pdf}: expected section-heading order {labels}, got {positions}")' "$pdf" "$text_file"
           done
 
       - name: Render PDF previews
