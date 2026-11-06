@@ -24,7 +24,7 @@
 \providecommand{\cvlang}{fr}
 \input{content/personal}
 \input{content/\cvlang}
-\hypersetup{pdftitle={CV - \cvName},pdfauthor={\cvName},pdflang={\cvlang},pdfsubject={AI and applied research internship}}
+\hypersetup{pdftitle={CV - \cvName},pdfauthor={\cvName},pdflang={\cvlang},pdfsubject={\cvPdfSubject}}
 
 % ---------- Palette ----------
 \definecolor{accent}{HTML}{39B7B0}
@@ -101,7 +101,7 @@
 
   \sideline{\textcolor{accent}{\faEnvelope}\hspace{5pt}\cvEmail}
   \sideline{\textcolor{accent}{\faMapMarker*}\hspace{5pt}\cvCity}
-  \sideline{\textcolor{accent}{\faPhone}\hspace{5pt}\cvPhone}
+  \sideline{\textcolor{accent}{\faPhone}\hspace{5pt}\href{tel:\cvPhoneURI}{\cvPhone}}
 
   \sidehead{\cvLabNetworks}
   \sideline{\cvneticon{https://www.linkedin.com/in/\cvLinkedinId/}{\faLinkedin}{LinkedIn}}
