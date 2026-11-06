@@ -113,15 +113,7 @@ jobs:
               echo "::error file=$pdf::At least one font is not embedded"
               exit 1
             fi
-            python3 - "$pdf" "$text_file" <<'PY'
-            import pathlib, sys
-            pdf, path = sys.argv[1:]
-            text = pathlib.Path(path).read_text(encoding="utf-8", errors="replace").casefold()
-            labels = ("formation", "expériences", "projets") if "_one_column_fr" in pdf else ("education", "experience", "projects") if "_one_column_en" in pdf else ("expériences", "projets", "formation") if "_two_columns_fr" in pdf else ("experience", "projects", "education")
-            positions = [text.find(label) for label in labels]
-            if any(pos < 0 for pos in positions) or positions != sorted(positions):
-                raise SystemExit(f"{pdf}: expected main-section reading order {labels}, got {positions}")
-          PY
+            python3 -c 'import pathlib,sys; pdf,path=sys.argv[1:]; text=pathlib.Path(path).read_text(encoding="utf-8",errors="replace").casefold(); labels=("formation","expériences","projets") if "_one_column_fr" in pdf else ("education","experience","projects") if "_one_column_en" in pdf else ("expériences","projets","formation") if "_two_columns_fr" in pdf else ("experience","projects","education"); positions=[text.find(label) for label in labels]; sys.exit(0 if all(pos >= 0 for pos in positions) and positions == sorted(positions) else f"{pdf}: expected reading order {labels}, got {positions}")' "$pdf" "$text_file"
           done
 
       - name: Render PDF previews
