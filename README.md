@@ -48,7 +48,7 @@ Create your local personal data file once:
 cp content/personal.example.tex content/personal.tex
 ```
 
-Then fill in the macros in `content/personal.tex`. This file is ignored by Git, so your personal details stay on your machine.
+Then fill in the macros in `content/personal.tex`. Add `\\newcommand{\\cvPhoneURI}{+33612345678}` using your own digits-only international number (E.164) for the clickable `tel:` link. This file is ignored by Git, so your personal details stay on your machine.
 
 ```bash
 make                              # the 4 PDFs in build/
@@ -92,6 +92,10 @@ The workflow requires all six values. They are injected only into the build step
 Pull requests from forks skip the build because GitHub does not expose repository secrets to those workflows.
 
 The generated PDFs still contain the contact details by design. Keep the repository private if the PDFs and their workflow artifacts/releases must remain access-restricted.
+
+## PDF accessibility status
+
+The build checks one-page output, extractable text, expected main-section reading order, and embedded fonts. CI also uploads PNG previews of all four PDFs for manual visual review. The PDFs are **not currently certified PDF/UA or fully tagged for assistive technology**. PDF/UA requires a semantic structure tree, document language/metadata validation, and a dedicated validator; this remains a separate follow-up rather than claiming compliance based on text extraction alone.
 
 ## License and personal data
 
