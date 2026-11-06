@@ -9,11 +9,16 @@ PDFS      := $(foreach t,$(TEMPLATES),$(foreach l,$(LANGS),build/$(t)_$(l).pdf))
 .PHONY: all clean
 all: $(PDFS)
 
+# Give a useful message instead of a cryptic missing-prerequisite error.
+content/personal.tex:
+	@echo "Missing content/personal.tex. Copy content/personal.example.tex to content/personal.tex and fill in your details." >&2
+	@exit 1
+
 define build_rule
 build/$(1)_$(2).pdf: $(1).tex content/$(2).tex content/personal.tex $(wildcard photo.jpg)
 	@mkdir -p build
-	pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build \
-	  -jobname=$(1)_$(2) "\def\cvlang{$(2)}\input{$(1).tex}" > build/$(1)_$(2).log.txt \
+	pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build \\
+	  -jobname=$(1)_$(2) "\\def\\cvlang{$(2)}\\input{$(1).tex}" > build/$(1)_$(2).log.txt \\
 	  || (tail -n 30 build/$(1)_$(2).log.txt; exit 1)
 endef
 $(foreach t,$(TEMPLATES),$(foreach l,$(LANGS),$(eval $(call build_rule,$(t),$(l)))))
