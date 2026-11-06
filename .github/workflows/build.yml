@@ -7,7 +7,7 @@ on:
   pull_request:
 
 permissions:
-  contents: write   # nécessaire pour publier une release lors d'un tag
+  contents: write   # required to publish a release on tag
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Installer LaTeX
+      - name: Install LaTeX
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
@@ -24,16 +24,16 @@ jobs:
             texlive-plain-generic tex-gyre \
             texlive-pictures texlive-fonts-extra
 
-      - name: Compiler les CV
+      - name: Build the CVs
         run: make
 
-      - name: Publier les PDF en artefact
+      - name: Upload PDFs as artifact
         uses: actions/upload-artifact@v4
         with:
           name: cv-pdf
           path: build/*.pdf
 
-      - name: Créer une release (sur tag v*)
+      - name: Create a release (on v* tag)
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:

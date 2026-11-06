@@ -1,14 +1,15 @@
 % ============================================================
-%  Contenu du CV — version française
+%  CV content — French version
 % ============================================================
 
-% ---------- Libellés ----------
+% ---------- Labels ----------
 \newcommand{\cvLabProfile}{Profil}
 \newcommand{\cvLabExp}{Expériences}
 \newcommand{\cvLabProj}{Projets \& open source}
 \newcommand{\cvLabEdu}{Formation}
 \newcommand{\cvLabEduAwards}{Formation}
 \newcommand{\cvLabSkills}{Compétences}
+\newcommand{\cvLabTechSkills}{Compétences techniques}
 \newcommand{\cvLabSoftSkills}{Soft skills}
 \newcommand{\cvLabMisc}{Divers}
 \newcommand{\cvLabNetworks}{Réseaux}
@@ -17,13 +18,13 @@
 \newcommand{\cvLabInterests}{Centres d'intérêt}
 \newcommand{\cvColon}{\ :\ }
 
-% ---------- Titre et profil ----------
+% ---------- Headline and profile ----------
 \newcommand{\cvObjective}{CANDIDATURE — STAGE EN IA \& RECHERCHE APPLIQUÉE}
 \newcommand{\cvHeadline}{Élève-ingénieur EPITA \,·\, Intelligence artificielle \,·\, R\&D}
 \newcommand{\cvTagline}{IA \& recherche appliquée}
 \newcommand{\cvProfile}{Élève-ingénieur en informatique à l'EPITA, avec une expérience en recherche appliquée au LRE et en développement d'IA agentique chez Opensee. Intérêt marqué pour l'apprentissage automatique, l'algorithmique et les systèmes intelligents, complété par des contributions open source à l'écosystème LangChain.}
 
-% ---------- Expériences ----------
+% ---------- Experience ----------
 \newcommand{\cvExperiences}{%
   \cvexp{Stagiaire IA — Équipe Intelligence artificielle}{Opensee}{Puteaux · Sur site}{Depuis sept. 2026}{%
     \cvli{Contribution au développement d'\textbf{Agensee}, solution d'IA agentique spécialisée dans l'analyse de données financières.}
@@ -36,7 +37,7 @@
     \cvli{Accompagnement d'étudiants en C et Python : explication des concepts, algorithmique, débogage et résolution de problèmes pratiques.}
     \cvli{Encadrement de TP, relecture des sujets et tests, validation des rendus via GitLab et correction des travaux en C avec Criterion.}}}
 
-% ---------- Projets — ordre antéchronologique ----------
+% ---------- Projects — reverse chronological order ----------
 \newcommand{\cvProjects}{%
   \cvexp{Emulators Collection}{Projet personnel · C++20, WebAssembly, React/TypeScript}{\href{https://github.com/Vorpalin/emulators-collection}{GitHub}}{Sept. 2026 -- aujourd'hui}{%
     \cvli{Conception d'une architecture modulaire en C++20 pour intégrer plusieurs systèmes d'émulation et isoler leurs composants matériels.}
@@ -53,7 +54,7 @@
     \cvli{Implémentation \textbf{from scratch} d'un réseau de neurones pour reconnaître les lettres et intégration des étapes pour résoudre automatiquement la grille.}
     \cvli{Coordination d'une équipe de trois personnes et intégration des composants du projet.}}}
 
-% ---------- Formation ----------
+% ---------- Education ----------
 \newcommand{\cvEducation}{%
   \cvedu{Diplôme d'ingénieur en informatique}{EPITA}{Lyon}{2023 -- 2028}
   \cvedu{Semestre universitaire à l'étranger — informatique}{Centria University of Applied Sciences}{Kokkola, Finlande · 30 ECTS}{Janv. -- mai 2025}
@@ -61,7 +62,7 @@
 
 \newcommand{\cvAwards}{}
 
-% ---------- Compétences, langues, intérêts ----------
+% ---------- Skills, languages, interests ----------
 \newcommand{\cvSkills}{%
   \cvskill{IA \& recherche}{IA agentique, apprentissage automatique, vision par ordinateur, cryptanalyse différentielle}
   \cvskill{Algorithmique}{Programmation dynamique, calcul parallèle, optimisation}
