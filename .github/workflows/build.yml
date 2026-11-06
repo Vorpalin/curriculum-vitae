@@ -27,7 +27,12 @@ jobs:
             texlive-plain-generic tex-gyre \
             texlive-pictures texlive-fonts-extra
 
+      - name: Use empty personal data template for pull requests
+        if: github.event_name == 'pull_request'
+        run: cp content/personal.example.tex content/personal.tex
+
       - name: Generate private personal data file
+        if: github.event_name != 'pull_request'
         env:
           CV_NAME: \${{ secrets.CV_NAME }}
           CV_CITY: \${{ secrets.CV_CITY }}
